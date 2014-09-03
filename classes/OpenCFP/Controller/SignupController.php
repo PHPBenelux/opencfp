@@ -49,6 +49,7 @@ class SignupController
         $form_data = array();
         $form_data['transportation'] = 0;
         $form_data['hotel'] = 0;
+        $form_data['vegetarian'] = 0;
         $form_data['formAction'] = '/signup';
         $form_data['buttonInfo'] = 'Create my speaker profile';
 
@@ -73,7 +74,8 @@ class SignupController
         $form_data['speaker_bio'] = $req->get('speaker_bio') ?: null;
         $form_data['transportation'] = $req->get('transportation') ?: null;
         $form_data['hotel'] = $req->get('hotel') ?: null;
-
+        $form_data['vegetarian'] = $req->get('vegetarian') ?: null;
+        
         $form_data['speaker_photo'] = null;
         if ($req->files->get('speaker_photo') !== null) {
             // Upload Image
@@ -85,7 +87,7 @@ class SignupController
 
         if ($form->validateAll()) {
             $sanitized_data = $form->getCleanData();
-
+            
             if (isset($form_data['speaker_photo'])) {
                 // Move file into uploads directory
                 $fileName = uniqid() . '_' . $form_data['speaker_photo']->getClientOriginalName();
@@ -103,7 +105,7 @@ class SignupController
                 $speakerPhoto->crop(250, 250);
 
                 // Give photo a unique name
-                $sanitized_data['speaker_photo'] = $form_data['first_name'] . '.' . $form_data['last_name'] . uniqid() . '.' . $speakerPhoto->extension;
+                $sanitized_data['speaker_photo'] = preg_replace('~[^\.A-Za-z0-9?!\.]~', '', $form_data['first_name'] . '.' . $form_data['last_name'] . uniqid()) . '.' . $speakerPhoto->extension;
 
                 // Resize image and destroy original
                 if ($speakerPhoto->save(APP_DIR . '/web/' . $app['uploadPath'] . $sanitized_data['speaker_photo'])) {
@@ -141,9 +143,10 @@ class SignupController
                     'bio' => $sanitized_data['speaker_bio'],
                     'transportation' => $sanitized_data['transportation'],
                     'hotel' => $sanitized_data['hotel'],
+                    'vegetarian' => $sanitized_data['vegetarian'],
                     'photo_path' => $sanitized_data['speaker_photo'],
                 ));
-
+                
                 // Set Success Flash Message
                 $app['session']->set('flash', array(
                     'type' => 'success',

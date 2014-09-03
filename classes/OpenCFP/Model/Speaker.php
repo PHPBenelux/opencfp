@@ -32,24 +32,29 @@ class Speaker
          * Records must have a user ID to associate with, some speaker info
          * but bio info is optional
          */
-        if (empty($data['user_id']) || empty($data['info'])) {
+        if (empty($data['user_id'])) {
             return false;
+        }
+        
+        if (!isset($data['info'])) {
+            $data['info'] = null;
         }
 
         if (!isset($data['bio'])) {
             $data['bio'] = null;
         }
 
-        $sql = "INSERT INTO speakers (user_id, info, bio, transportation, hotel, photo_path) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO speakers (user_id, info, bio, transportation, hotel, photo_path, vegetarian) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->_db->prepare($sql);
-
+        
         return $stmt->execute(array(
             $data['user_id'],
             trim($data['info']),
             trim($data['bio']),
             $data['transportation'],
             $data['hotel'],
-            $data['photo_path']
+            $data['photo_path'],
+            $data['vegetarian']
         )
     );
     }
@@ -83,7 +88,7 @@ class Speaker
     public function getDetailsByUserId($user_id)
     {
         $sql = "
-            SELECT u.email, u.first_name, u.last_name, u.company, u.url, u.twitter, u.airport, s.info, s.bio, s.transportation, s.hotel, s.photo_path
+            SELECT u.email, u.first_name, u.last_name, u.company, u.url, u.twitter, u.airport, s.info, s.bio, s.transportation, s.hotel, s.photo_path, s.vegetarian
             FROM users u
             LEFT JOIN speakers s ON s.user_id = u.id
             WHERE u.id = ?
@@ -162,6 +167,7 @@ class Speaker
                 $speaker_details['speaker_bio'] == $details['bio'] && 
                 $speaker_details['transportation'] == $details['transportation'] && 
                 $speaker_details['hotel'] == $details['hotel'] && 
+                $speaker_details['vegetarian'] == $details['vegetarian'] && 
                 $speakerPhoto == $details['photo_path']
             ) {
                 return true;
@@ -173,7 +179,8 @@ class Speaker
                 bio = ?,
                 transportation = ?,
                 hotel = ?,
-                photo_path = ?
+                photo_path = ?,
+                vegetarian = ?
                 WHERE user_id = ?
             ";
             $stmt = $this->_db->prepare($sql);
@@ -183,6 +190,7 @@ class Speaker
                 $speaker_details['transportation'],
                 $speaker_details['hotel'],
                 $speakerPhoto,
+                $speaker_details['vegetarian'],
                 trim($speaker_details['user_id']))
             );
 
@@ -192,7 +200,7 @@ class Speaker
         }
 
         if (isset($row['speaker_count']) && $row['speaker_count'] == 0) {
-            $sql = "INSERT INTO speakers (user_id, info, bio, transportation, hotel, photo_path) VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO speakers (user_id, info, bio, transportation, hotel, photo_path, vegetarian) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->_db->prepare($sql);
             return $stmt->execute(array(
                 $speaker_details['user_id'],
@@ -200,7 +208,8 @@ class Speaker
                 trim($speaker_details['speaker_bio']),
                 $speaker_details['transportation'],
                 $speaker_details['hotel'],
-                $speakerPhoto
+                $speakerPhoto,
+                $speaker_details['vegetarian']
             ));
         }
 

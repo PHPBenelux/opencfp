@@ -37,6 +37,7 @@ class DashboardController
             'transportation' => $speaker_data['transportation'],
             'hotel' => $speaker_data['hotel'],
             'speaker_photo' => $speaker_data['photo_path'],
+            'vegetarian' => $speaker_data['vegetarian'],
             'preview_photo' => $app['uploadPath'] . $speaker_data['photo_path'],
             'airport' => $speaker_data['airport'],
             'permissions' => $permissions,
@@ -47,20 +48,22 @@ class DashboardController
     
     public function ideasAction(Request $req, Application $app)
     {
-    	// Load our template and RENDER
-    	$template = $app['twig']->loadTemplate('ideas.twig');
-    	$template_data = array();
+        // Load our template and RENDER
+        $template = $app['twig']->loadTemplate('ideas.twig');
+        $user = $app['sentry']->getUser();
+        $template_data = array('user' => $user);
     
-    	return $template->render($template_data);
+        return $template->render($template_data);
     }
     
     public function packageAction(Request $req, Application $app)
     {
-    	// Load our template and RENDER
-    	$template = $app['twig']->loadTemplate('package.twig');
-    	$template_data = array();
+        // Load our template and RENDER
+        $template = $app['twig']->loadTemplate('package.twig');
+        $user = $app['sentry']->getUser();
+        $template_data = array('user' => $user);
     
-    	return $template->render($template_data);
+        return $template->render($template_data);
     }
 }
 

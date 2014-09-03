@@ -44,10 +44,10 @@ class TalkController
 
         // You can only edit talks while the CfP is open
         if (!$this->isCfpOpen(strtotime('now'))) {
-            $app['session']->set('flash', [
+            $app['session']->set('flash', array(
                 'type' => 'error',
                 'short' => 'Error',
-                'ext' => 'You cannot edit talks once the call for papers has ended']
+                'ext' => 'You cannot edit talks once the call for papers has ended')
             );
 
             return $app->redirect($app['url'] . '/dashboard');
@@ -96,10 +96,10 @@ class TalkController
 
         // You can only create talks while the CfP is open
         if (!$this->isCfpOpen(strtotime('now'))) {
-            $app['session']->set('flash', [
+            $app['session']->set('flash', array(
                 'type' => 'error',
                 'short' => 'Error',
-                'ext' => 'You cannot create talks once the call for papers has ended']
+                'ext' => 'You cannot create talks once the call for papers has ended')
             );
 
             return $app->redirect($app['url'] . '/dashboard');
@@ -136,10 +136,10 @@ class TalkController
 
         // You can only create talks while the CfP is open
         if (!$this->isCfpOpen(strtotime('now'))) {
-            $app['session']->set('flash', [
+            $app['session']->set('flash', array(
                 'type' => 'error',
                 'short' => 'Error',
-                'ext' => 'You cannot create talks once the call for papers has ended']
+                'ext' => 'You cannot create talks once the call for papers has ended')
             );
 
             return $app->redirect($app['url'] . '/dashboard');

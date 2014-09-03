@@ -8,11 +8,13 @@ use Pimple;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
-$environment = isset($_SERVER['CFP_ENV']) ? $_SERVER['CFP_ENV'] : 'development';
-// $environment = isset($_SERVER['CFP_ENV']) ? $_SERVER['CFP_ENV'] : 'production';
+//$environment = isset($_SERVER['CFP_ENV']) ? $_SERVER['CFP_ENV'] : 'development';
+$environment = isset($_SERVER['CFP_ENV']) ? $_SERVER['CFP_ENV'] : 'production';
 // Set constant for app wide use
 define('APP_ENV', $environment);
 define('APP_DIR', dirname(dirname(__DIR__)));
+
+date_default_timezone_set('Europe/Amsterdam');
 
 class Bootstrap
 {

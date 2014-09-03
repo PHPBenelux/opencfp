@@ -16,3 +16,4 @@ composer.lock
 deployment.properties
 deployment.xml
 /scripts
+web/uploads/
