@@ -16,7 +16,10 @@ class SignupForm extends Form
         'twitter',
         'speaker_info',
         'speaker_bio',
-        'speaker_photo'
+        'transportation',
+        'hotel',
+        'speaker_photo',
+        'vegetarian'
     );
 
     /**

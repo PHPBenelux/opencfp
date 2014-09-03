@@ -8,11 +8,13 @@ use Pimple;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
-$environment = isset($_SERVER['CFP_ENV']) ? $_SERVER['CFP_ENV'] : 'development';
-// $environment = isset($_SERVER['CFP_ENV']) ? $_SERVER['CFP_ENV'] : 'production';
+//$environment = isset($_SERVER['CFP_ENV']) ? $_SERVER['CFP_ENV'] : 'development';
+$environment = isset($_SERVER['CFP_ENV']) ? $_SERVER['CFP_ENV'] : 'production';
 // Set constant for app wide use
 define('APP_ENV', $environment);
 define('APP_DIR', dirname(dirname(__DIR__)));
+
+date_default_timezone_set('Europe/Amsterdam');
 
 class Bootstrap
 {
@@ -36,6 +38,10 @@ class Bootstrap
 
         // Initialize out Silex app and let's do it
         $app = new \Silex\Application();
+
+        if ($this->getConfig('twig.debug')) {
+            $app['debug'] = $this->getConfig('twig.debug');
+        }
 
         // Register our session provider
         $app->register(new \Silex\Provider\SessionServiceProvider());
@@ -116,22 +122,24 @@ class Bootstrap
         });
 
         // Define error template paths
-        $app->error(function (\Exception $e, $code) use ($app) {
-            switch ($code) {
-                case 401:
-                    $message = $app['twig']->render('error/401.twig');
-                    break;
-                case 403:
-                    $message = $app['twig']->render('error/403.twig');
-                    break;
-                case 404:
-                    $message = $app['twig']->render('error/404.twig');
-                    break;
-                default:
-                    $message = $app['twig']->render('error/500.twig');
-            }
-            return new Response($message, $code);
-        });
+        if (!$app['debug']) {
+            $app->error(function (\Exception $e, $code) use ($app) {
+                switch ($code) {
+                    case 401:
+                        $message = $app['twig']->render('error/401.twig');
+                        break;
+                    case 403:
+                        $message = $app['twig']->render('error/403.twig');
+                        break;
+                    case 404:
+                        $message = $app['twig']->render('error/404.twig');
+                        break;
+                    default:
+                        $message = $app['twig']->render('error/500.twig');
+                }
+                return new Response($message, $code);
+            });
+        }
 
         $app = $this->defineRoutes($app);
 
@@ -157,7 +165,7 @@ class Bootstrap
         // Secondary Pages
         $app->get('/package', 'OpenCFP\Controller\DashboardController::packageAction');
         $app->get('/ideas', 'OpenCFP\Controller\DashboardController::ideasAction');
-        
+
         // User Dashboard
         $app->get('/dashboard', 'OpenCFP\Controller\DashboardController::indexAction');
 
@@ -204,6 +212,9 @@ class Bootstrap
         // Admin::Speakers
         $app->get('/admin/speakers', 'OpenCFP\Controller\Admin\SpeakersController::indexAction');
         $app->get('/admin/speakers/{id}', 'OpenCFP\Controller\Admin\SpeakersController::viewAction');
+        $app->get('/admin/speakers/delete/{id}', 'OpenCFP\Controller\Admin\SpeakersController::deleteAction');
+        $app->get('/admin/admins', 'OpenCFP\Controller\Admin\AdminsController::indexAction');
+        $app->get('/admin/admins/{id}', 'OpenCFP\Controller\Admin\AdminsController::removeAction');
 
         return $app;
     }

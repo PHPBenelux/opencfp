@@ -4,6 +4,7 @@ namespace OpenCFP\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use OpenCFP\Config\ConfigINIFileLoader;
 
 class SecurityController
 {
@@ -22,7 +23,6 @@ class SecurityController
     public function indexAction(Request $req, Application $app)
     {
         $template = $app['twig']->loadTemplate('login.twig');
-
         return $template->render(array());
     }
 

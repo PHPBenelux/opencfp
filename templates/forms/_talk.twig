@@ -24,8 +24,8 @@
         <label for="form-talk-type" class="col-sm-2 control-label">Talk Type</label>
         <div class="col-sm-10">
             <select id="form-talk-type" name="type">
-                <option value="regular" {% if level == 'entry' %}selected {% endif %}>Regular</option>
-                <option value="tutorial" {% if level == 'mid' %}selected {% endif %}>Tutorial</option>
+                <option value="regular" {% if type == 'regular' %}selected {% endif %}>Regular (1 hour including QA)</option>
+                <option value="tutorial" {% if type == 'tutorial' %}selected {% endif %}>Tutorial (3 hours)</option>
             </select>
         </div>
     </div>
@@ -33,28 +33,28 @@
         <label for="form-talk-category" class="col-sm-2 control-label">Talk Category</label>
         <div class="col-sm-10">
             <select id="form-talk-category" name="category">
-                <option value="api" {% if category == 'api' %}selected {% endif %}>APIs (REST, SOAP, etc.)</option>
+                <option value="phpfuture" {% if category == 'phpfuture' %}selected {% endif %}>PHP and it's future</option>
+                <option value="virtualization" {% if category == 'virtualization' %}selected {% endif %}>Virtualization and environments</option>
+                <option value="devlife" {% if category == 'devlife' %}selected {% endif %}>Development life style</option>
                 <option value="continuousdelivery" {% if category == 'continuousdelivery' %}selected {% endif %}>Continuous Delivery</option>
-                <option value="database" {% if category == 'database' %}selected {% endif %}>Database</option>
-                <option value="development" {% if category == 'development' %}selected {% endif %}>Development</option>
-                <option value="devops" {% if category == 'devops' %}selected {% endif %}>Devops</option>
-                <option value="framework" {% if category == 'framework' %}selected {% endif %}>Framework</option>
-                <option value="ibmi" {% if category == 'ibmi' %}selected {% endif %}>IBMi</option>
-                <option value="javascript" {% if category == 'javascript' %}selected {% endif %}>JavaScript</option>
                 <option value="security" {% if category == 'security' %}selected {% endif %}>Security</option>
-                <option value="testing" {% if category == 'testing' %}selected {% endif %}>Testing</option>
-                <option value="uiux" {% if category == 'uiux' %}selected {% endif %}>UI/UX</option>
+                <option value="responsive" {% if category == 'responsive' %}selected {% endif %}>Responsive design</option>
+                <option value="testing" {% if category == 'testing' %}selected {% endif %}>Testing (unit, functional, etc.)</option>
+                <option value="vcs" {% if category == 'vcs' %}selected {% endif %}>Version control</option>
+                <option value="ux" {% if category == 'ux' %}selected {% endif %}>User Experience / Usability</option>
+                <option value="architectures" {% if category == 'architectures' %}selected {% endif %}>(Big) Data / Architectures</option>
+                <option value="crossingphp" {% if category == 'crossingphp' %}selected {% endif %}>Crossing the PHP bridge</option>
                 <option value="other" {% if category == 'other' %}selected {% endif %}>Other</option>
             </select>
         </div>
     </div>
     <div class="form-group">
-        <label for="form-talk-level" class="col-sm-2 control-label">Talk Level</label>
+        <label for="form-talk-level" class="col-sm-2 control-label">Session Type</label>
         <div class="col-sm-10">
             <select id="form-talk-level" name="level">
-                <option value="entry" {% if level == 'entry' %}selected {% endif %}>Entry level</option>
-                <option value="mid" {% if level == 'mid' %}selected {% endif %}>Mid-level</option>
-                <option value="advanced" {% if level == 'advanced' %}selected {% endif %}>Advanced</option>
+                <option value="overview" {% if level == 'overview' %}selected {% endif %}>Overview</option>
+                <option value="handson" {% if level == 'handson' %}selected {% endif %}>Hands on</option>
+                <option value="indepth" {% if level == 'indepth' %}selected {% endif %}>In depth</option>
             </select>
         </div>
     </div>

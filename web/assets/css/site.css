@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);
+
 body {
 	background: #FFF url('../img/bg/texture.png') repeat;
 	font-size: 1.6rem;
@@ -5,17 +7,17 @@ body {
 }
 
 a {
-	color: #f49c2c;
+	color: #1fbae2;
 }
 a:hover {
-	color: #f49c2c;
+	color: #1fbae2;
 }
 
 .star-favorite { color: #CCC; }
-.star-favorite--selected { color: #f49c2c; }
+.star-favorite--selected { color: #1fbae2; }
 
 .check-select { color: #CCC; }
-.check-select--selected { color: #f49c2c; }
+.check-select--selected { color: #1fbae2; }
 
 .tile {
   padding: 20px;
@@ -49,15 +51,15 @@ a:hover {
 
 .navbar-lsp {
 	background: #FFF;
-	border-bottom: 3px solid #63625A;
+	border-bottom: 3px solid #444444;
 }
 .navbar-lsp .navbar-nav > li > a {
-	color: #f49c2c;
+	color: #1fbae2;
 }
 .navbar-lsp .navbar-nav > .active > a,
 .navbar-lsp .navbar-nav > .active > a:hover,
 .navbar-lsp .navbar-nav > .active > a:focus {
-	background: #63625A;
+	background: #444444;
 	color: #FFF;
 }
 .navbar-lsp .navbar-toggle { background: #000; }
@@ -72,13 +74,13 @@ a:hover {
 	padding: 0.5em 0;
 	position: relative;
 
-	font-family: 'Open Sans Condensed', 'lucida grande', arial;
-	font-weight: 700;
+	font-family: 'Roboto', arial;
+	font-weight: 400;
 	text-transform: uppercase;
 }
 
 .headline:before {
-	background: #f49c2c;
+	background: #1fbae2;
 	display: block;
 	position: absolute;
 	top: 100%;
@@ -95,13 +97,14 @@ a:hover {
 }
 .intro-body {
 	margin: 0;
-	color: #63625A;
-	font: 4rem/1 'Sanchez', palatino, georgia;
+	color: #444444;
+	font: 4rem/1 'Roboto', sans-serif;
+	font-weight: 400;
 	text-align: center;
 	text-shadow: 1px 2px 0 rgba(191, 188, 174, 0.6);
 }
 .intro-highlight {
-	color: #f49c2c;
+	color: #1fbae2;
 }
 
 .home-page .module {
@@ -167,9 +170,9 @@ a:hover {
 .lsp-btn-primary {
 	box-shadow: 3px 3px 0 rgba(0,0,0,0.25);
   margin: 1rem 0;
-	background: #403731;
+	background: #444444;
 	color: #FFF;
-	font-family: 'Open Sans Condensed', 'lucida grande', arial;
+	font-family: 'Roboto', arial;
 	font-weight: 300;
 	letter-spacing: 1px;
 	text-shadow: none;
@@ -178,7 +181,7 @@ a:hover {
   transition: all 0.25s ease-in-out;
 }
 .lsp-btn-primary:hover {
-    background: #4E433C;
+    background: #1fbae2;
     color: #FFF;
 }
 .lsp-btn-primary:visited {

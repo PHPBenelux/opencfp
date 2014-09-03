@@ -32,22 +32,29 @@ class Speaker
          * Records must have a user ID to associate with, some speaker info
          * but bio info is optional
          */
-        if (empty($data['user_id']) || empty($data['info'])) {
+        if (empty($data['user_id'])) {
             return false;
+        }
+        
+        if (!isset($data['info'])) {
+            $data['info'] = null;
         }
 
         if (!isset($data['bio'])) {
             $data['bio'] = null;
         }
 
-        $sql = "INSERT INTO speakers (user_id, info, bio, photo_path) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO speakers (user_id, info, bio, transportation, hotel, photo_path, vegetarian) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->_db->prepare($sql);
-
+        
         return $stmt->execute(array(
             $data['user_id'],
             trim($data['info']),
             trim($data['bio']),
-            $data['photo_path']
+            $data['transportation'],
+            $data['hotel'],
+            $data['photo_path'],
+            $data['vegetarian']
         )
     );
     }
@@ -81,7 +88,7 @@ class Speaker
     public function getDetailsByUserId($user_id)
     {
         $sql = "
-            SELECT u.email, u.first_name, u.last_name, u.company, u.twitter, u.airport, s.info, s.bio, s.photo_path
+            SELECT u.email, u.first_name, u.last_name, u.company, u.url, u.twitter, u.airport, s.info, s.bio, s.transportation, s.hotel, s.photo_path, s.vegetarian
             FROM users u
             LEFT JOIN speakers s ON s.user_id = u.id
             WHERE u.id = ?
@@ -112,7 +119,7 @@ class Speaker
 
         // Remove old photo if new one has been uploaded
         if ($speakerPhoto !== $details['photo_path']) {
-            unlink(UPLOAD_PATH . $details['photo_path']);
+            unlink(APP_DIR . '/web/' . UPLOAD_PATH . $details['photo_path']);
         }
 
         if ($details['first_name'] != $speaker_details['first_name']
@@ -156,8 +163,11 @@ class Speaker
         if (isset($row['speaker_count']) && $row['speaker_count'] == 1) {
             // Check if any fields have changed
             if (
-                $speaker_details['speaker_info'] == $details['info'] &&
-                $speaker_details['speaker_bio'] == $details['bio'] &&
+                $speaker_details['speaker_info'] == $details['info'] && 
+                $speaker_details['speaker_bio'] == $details['bio'] && 
+                $speaker_details['transportation'] == $details['transportation'] && 
+                $speaker_details['hotel'] == $details['hotel'] && 
+                $speaker_details['vegetarian'] == $details['vegetarian'] && 
                 $speakerPhoto == $details['photo_path']
             ) {
                 return true;
@@ -167,14 +177,20 @@ class Speaker
                 UPDATE speakers
                 SET info = ?,
                 bio = ?,
-                photo_path = ?
+                transportation = ?,
+                hotel = ?,
+                photo_path = ?,
+                vegetarian = ?
                 WHERE user_id = ?
             ";
             $stmt = $this->_db->prepare($sql);
             $stmt->execute(array(
                 trim($speaker_details['speaker_info']),
                 trim($speaker_details['speaker_bio']),
+                $speaker_details['transportation'],
+                $speaker_details['hotel'],
                 $speakerPhoto,
+                $speaker_details['vegetarian'],
                 trim($speaker_details['user_id']))
             );
 
@@ -184,13 +200,16 @@ class Speaker
         }
 
         if (isset($row['speaker_count']) && $row['speaker_count'] == 0) {
-            $sql = "INSERT INTO speakers (user_id, info, bio, photo_path) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO speakers (user_id, info, bio, transportation, hotel, photo_path, vegetarian) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->_db->prepare($sql);
             return $stmt->execute(array(
                 $speaker_details['user_id'],
                 trim($speaker_details['speaker_info']),
                 trim($speaker_details['speaker_bio']),
-                $speakerPhoto
+                $speaker_details['transportation'],
+                $speaker_details['hotel'],
+                $speakerPhoto,
+                $speaker_details['vegetarian']
             ));
         }
 
@@ -215,8 +234,7 @@ class Speaker
 
         return $results;
     }
-
-
+    
     /**
      * Get total record count
      */
@@ -239,5 +257,21 @@ class Speaker
         $reset_code = $user->getResetPasswordCode();
 
         return $user->attemptResetPassword($reset_code, $new_password);
+    }
+
+    public function delete($userId)
+    {
+        // Check to make sure the user exists
+        $details = $this->getDetailsByUserId($userId);
+
+        if (!$details) {
+            return false;
+        }
+
+        $sql = "DELETE FROM users WHERE id = ?";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute(array($userId));
+
+        return true;
     }
 }

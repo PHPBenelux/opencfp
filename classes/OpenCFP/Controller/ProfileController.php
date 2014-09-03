@@ -52,6 +52,9 @@ class ProfileController
             'speaker_photo' => $speaker_data['photo_path'],
             'preview_photo' => $app['uploadPath'] . $speaker_data['photo_path'],
             'airport' => $speaker_data['airport'],
+            'transportation' => $speaker_data['transportation'],
+            'hotel' => $speaker_data['hotel'],
+            'vegetarian' => $speaker_data['vegetarian'],
             'id' => $user->getId(),
             'formAction' => '/profile/edit',
             'buttonInfo' => 'Update Profile',
@@ -86,6 +89,9 @@ class ProfileController
             'company' => $req->get('company'),
             'twitter' => $req->get('twitter'),
             'airport' => $req->get('airport'),
+            'transportation' => $req->get('transportation'),
+            'hotel' => $req->get('hotel'),
+            'vegetarian' => $req->get('vegetarian'),
             'speaker_info' => $req->get('speaker_info') ?: null,
             'speaker_bio' => $req->get('speaker_bio') ?: null,
         );
@@ -108,7 +114,7 @@ class ProfileController
 
             if (isset($form_data['speaker_photo'])) {
                 // Move file into uploads directory
-                $fileName = $form_data['speaker_photo']->getClientOriginalName();
+                $fileName = uniqid() . '_' . $form_data['speaker_photo']->getClientOriginalName();
                 $form_data['speaker_photo']->move(APP_DIR . '/web/' . $app['uploadPath'], $fileName);
 
                 // Resize Photo
@@ -122,13 +128,12 @@ class ProfileController
 
                 $speakerPhoto->crop(250, 250);
 
-
                 // Give photo a unique name
-                $sanitized_data['speaker_photo'] = $form_data['first_name'] . '.' . $form_data['last_name'] . uniqid() . '.' . $speakerPhoto->extension;
+                $sanitized_data['speaker_photo'] = preg_replace('~[^\.A-Za-z0-9?!]~', '', $form_data['first_name'] . '.' . $form_data['last_name'] . uniqid()) . '.' . $speakerPhoto->extension;
 
                 // Resize image and destroy original
                 if ($speakerPhoto->save(APP_DIR . '/web/' . $app['uploadPath'] . $sanitized_data['speaker_photo'])) {
-                    unlink($app['uploadPath'] . $fileName);
+                    unlink(APP_DIR . '/web/' . $app['uploadPath'] . $fileName);
                 }
             }
 

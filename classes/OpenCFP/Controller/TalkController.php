@@ -5,6 +5,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use OpenCFP\Form\TalkForm;
 use OpenCFP\Model\Talk;
+use OpenCFP\Config\ConfigINIFileLoader;
 
 class TalkController
 {
@@ -20,10 +21,36 @@ class TalkController
         $app['session']->set('flash', null);
     }
 
+    public function isCfpOpen($current_time)
+    {
+        $loader = new ConfigINIFileLoader(
+            APP_DIR . '/config/config.' . APP_ENV . '.ini'
+        );
+        $config_data = $loader->load();
+        $end_date = $config_data['application']['enddate'] . ' 11:59 PM';
+
+        if ($current_time < strtotime($end_date)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function editAction(Request $req, Application $app)
     {
         if (!$app['sentry']->check()) {
             return $app->redirect($app['url'] . '/login');
+        }
+
+        // You can only edit talks while the CfP is open
+        if (!$this->isCfpOpen(strtotime('now'))) {
+            $app['session']->set('flash', array(
+                'type' => 'error',
+                'short' => 'Error',
+                'ext' => 'You cannot edit talks once the call for papers has ended')
+            );
+
+            return $app->redirect($app['url'] . '/dashboard');
         }
 
         $id = $req->get('id');
@@ -67,6 +94,17 @@ class TalkController
             return $app->redirect($app['url'] . '/login');
         }
 
+        // You can only create talks while the CfP is open
+        if (!$this->isCfpOpen(strtotime('now'))) {
+            $app['session']->set('flash', array(
+                'type' => 'error',
+                'short' => 'Error',
+                'ext' => 'You cannot create talks once the call for papers has ended')
+            );
+
+            return $app->redirect($app['url'] . '/dashboard');
+        }
+
         $user = $app['sentry']->getUser();
 
         $template = $app['twig']->loadTemplate('talk/create.twig');
@@ -91,8 +129,20 @@ class TalkController
     public function processCreateAction(Request $req, Application $app)
     {
         $error = 0;
+
         if (!$app['sentry']->check()) {
             return $app->redirect($app['url'] . '/login');
+        }
+
+        // You can only create talks while the CfP is open
+        if (!$this->isCfpOpen(strtotime('now'))) {
+            $app['session']->set('flash', array(
+                'type' => 'error',
+                'short' => 'Error',
+                'ext' => 'You cannot create talks once the call for papers has ended')
+            );
+
+            return $app->redirect($app['url'] . '/dashboard');
         }
 
         $user = $app['sentry']->getUser();
@@ -146,13 +196,14 @@ class TalkController
         );
         $talk = new Talk($app['db']);
 
-        if (!$talk->create($data)) {
+        $result = $talk->create($data);
+        if (!$result) {
             $error++;
             // Set Success Flash Message
             $app['session']->set('flash', array(
                 'type' => 'error',
                 'short' => 'Error',
-                'ext' => "Unable to create a new record in our talks database, please try again",
+                'ext' => "Unable to add the talk, please try again",
             ));
         }
 
@@ -166,8 +217,11 @@ class TalkController
         $app['session']->set('flash', array(
             'type' => 'success',
             'short' => 'Success',
-            'ext' => "Succesfully created a talk"
+            'ext' => "Succesfully added the talk"
         ));
+
+        // send email to speaker showing submission
+        $this->sendSubmitEmail($app, $user, $app['db']->lastInsertId());
 
         return $app->redirect($app['url'] . '/dashboard');
     }
@@ -260,6 +314,11 @@ class TalkController
             return $app->json(array('delete' => 'no-user'));
         }
 
+        // You can only delete talks while the CfP is open
+        if (!$this->isCfpOpen(strtotime('now'))) {
+            return $app->json(array('delete' => 'no'));
+        }
+
         $user = $app['sentry']->getUser();
         $talk = new Talk($app['db']);
 
@@ -268,5 +327,61 @@ class TalkController
         }
 
         return $app->json(array('delete' => 'no'));
+    }
+
+    protected function sendSubmitEmail(Application $app, $user, $talk_id)
+    {
+        $talk = new Talk($app['db']);
+        $talk_info = $talk->findById($talk_id);
+
+        // Create our Mailer object
+        $loader = new ConfigINIFileLoader(
+            APP_DIR . '/config/config.' . APP_ENV . '.ini'
+        );
+        $config_data = $loader->load();
+        $transport = new \Swift_SmtpTransport(
+            $config_data['smtp']['host'],
+            $config_data['smtp']['port']
+        );
+
+        if (!empty($config_data['smtp']['user'])) {
+            $transport->setUsername($config_data['smtp']['user'])
+                      ->setPassword($config_data['smtp']['password']);
+        }
+
+        if (!empty($config_data['smtp']['encryption'])) {
+            $transport->setEncryption($config_data['smtp']['encryption']);
+        }
+
+        // Build our email that we will send
+        $template = $app['twig']->loadTemplate('emails/talk_submit.twig');
+        $parameters = array(
+            'email' => $config_data['application']['email'],
+            'title' => $config_data['application']['title'],
+            'talk' => $talk_info['title'],
+            'enddate' => $config_data['application']['enddate']
+        );
+
+        try {
+            $mailer = new \Swift_Mailer($transport);
+            $message = new \Swift_Message();
+
+            $message->setTo($user['email']);
+            $message->setFrom(
+                $template->renderBlock('from', $parameters),
+                $template->renderBlock('from_name', $parameters)
+            );
+
+            $message->setSubject($template->renderBlock('subject', $parameters));
+            $message->setBody($template->renderBlock('body_text', $parameters));
+            $message->addPart(
+                $template->renderBlock('body_html', $parameters),
+                'text/html'
+            );
+
+            return $mailer->send($message);
+        } catch (\Exception $e) {
+            echo $e;die();
+        }
     }
 }
