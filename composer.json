@@ -16,14 +16,15 @@
         "silex/silex": "1.*",
         "symfony/form": "2.5.2",
         "symfony/validator": "~2.3",
-        "symfony/config": "dev-master",
+        "symfony/config": "^2.7",
         "symfony/translation": "~2.3",
         "symfony/twig-bridge": "~2.3",
         "symfony/locale": "~2.3",
         "doctrine/dbal": "~2.3",
         "symfony/browser-kit": "~2.3",
         "symfony/css-selector": "~2.3",
-        "intervention/image": "1.5.*"
+        "intervention/image": "1.5.*",
+        "symfony/security-csrf": "^2.7"
     },
     "autoload": {
         "psr-0": {"OpenCFP": "classes/"}
