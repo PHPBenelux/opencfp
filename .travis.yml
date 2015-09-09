@@ -1,24 +1,40 @@
 language: php
 
+sudo: false
+
 php:
+  - 5.6
   - 5.5
   - 5.4
+
+env:
+  - TRAVIS_DB=cfp_travis
 
 # cache composer downloads so installing is quicker
 cache:
   directories:
-    - $HOME/.composer
+    - $HOME/.composer/cache
 
-before_script:
+addons:
+  code_climate:
+    repo_token: 9deb249b01a414d979959cfd05a4c351b19a5959858653b20276454d4189edc3
+
+before_install:
   - composer self-update
+  - composer validate --no-check-publish
+
+install:
   - composer install
 
-  - cp config/config.travis.ini.dist config/config.development.ini
-
-  # Hack to write outgoing e-mails to stdout in order for the WebTest to pass.
-  # http://serverfault.com/a/248838/17428
-  - sudo python -m smtpd -n -c DebuggingServer localhost:2525 1> /dev/null &
-  - sleep 3
+before_script:
+  - sh tools/travis/setup-mail.sh
+  - mysql -e "CREATE DATABASE $TRAVIS_DB" -uroot
+  - vendor/bin/phinx --configuration=phinx.yml.dist migrate -e testing
 
 script:
-  - cd tests; phpunit
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+  - vendor/bin/php-cs-fixer fix --verbose
+
+after_script:
+  - vendor/bin/test-reporter --stdout > codeclimate.json
+  - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"

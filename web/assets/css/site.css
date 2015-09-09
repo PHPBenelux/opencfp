@@ -1,15 +1,22 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);
 
 body {
-	background: #FFF url('../img/bg/texture.png') repeat;
-	font-size: 1.6rem;
-	padding: 40px 0;
+  background: #FFF;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1.6rem;
+  padding: 5.5rem 0;
 }
 
 a {
+<<<<<<< HEAD
 	color: #1fbae2;
+=======
+  color: #e24b3b;
+>>>>>>> 3183012927d5f893992fbbd95979bd8c72a61faf
 }
+
 a:hover {
+<<<<<<< HEAD
 	color: #1fbae2;
 }
 
@@ -18,6 +25,200 @@ a:hover {
 
 .check-select { color: #CCC; }
 .check-select--selected { color: #1fbae2; }
+=======
+  color: #e97467;
+}
+
+.dashboard {
+  background: #ebeef1;
+}
+
+.header {
+  background: #e24b3b;
+  color: #FFF;
+  padding: 6rem 0;
+}
+
+.sidebar {
+  height: 100%;
+  padding: 1rem;
+  position: fixed;
+  left: 0;
+  overflow: hidden;
+  background: #4f5061;
+  z-index: 800;
+}
+
+.section {
+  padding: 1rem 0;
+}
+
+.admin-content {
+  padding: 1rem 4rem;
+}
+
+.section--full {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+.section--primary {
+  background: #e24b3b;
+  color: #FFF;
+}
+
+.section--light {
+  background: #EEE;
+  color: #7e8690;
+}
+
+.headline {
+  margin: 0.75rem 0;
+  padding: 0.5rem 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.headline--alpha {
+  font-weight: 700;
+}
+
+.headline--beta {
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.headline--centered {
+  text-align: center;
+}
+
+/**
+ * Base Button Object
+ * @tags ^button
+ * @format
+ * <a href="#" class="btn">Register</a>
+ * <button class="btn">Register</button>
+ * <input type="submit" class="btn" value="Register">
+ */
+.btn-opencfp {
+  border: 2px solid transparent;
+  display: inline-block;
+  margin: 0;
+  padding: 1rem;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  text-transform: uppercase;
+  -webkit-transition: background .1s ease-in;
+}
+
+.btn-opencfp,
+.btn-opencfp:hover {
+  text-decoration: none;
+}
+
+/**
+ * Button Sizes
+ * @tags ^button
+ * @extends btn
+ */
+.btn-opencfp-xsmall {
+  font-size: 1rem;
+}
+
+.btn-opencfp-small {
+  font-size: 1.5rem;
+}
+
+.btn-opencfp-medium {
+  font-size: 2rem;
+}
+
+.btn-opencfp-large {
+  font-size: 3rem;
+}
+
+.btn-opencfp-xlarge {
+  font-size: 4rem;
+}
+
+.btn-opencfp--full {
+  display: block;
+}
+
+.btn-opencfp--wide {
+  padding: 1rem 4rem;
+}
+
+/**
+ * Primary Button Style
+ * @tags ^button
+ * @extends btn
+ */
+.btn-opencfp--primary {
+  background: #FFF;
+  color: #e24b3b;
+}
+
+.btn-opencfp--primary:hover {
+  background: #F7F7F7;
+  color: #e24b3b;
+}
+
+.btn-opencfp--light {
+  background: #7e8690;
+  color: #FFF;
+}
+
+.btn-opencfp--light:hover {
+  background: #5c636c;
+  color: #FFF;
+}
+
+.btn-opencfp--outlined {
+  background: transparent;
+  border-color: #FFF;
+  color: #FFF;
+}
+
+.btn-opencfp--outlined:hover {
+  background: #FFF;
+  color: #e24b3b;
+}
+
+.btn-opencfp--centered {
+  text-align: center;
+}
+
+.module {
+  background: #FFF;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.module--constrained {
+  margin: 0 auto;
+  width: 60rem;
+}
+
+.module__header {
+  background: #e24b3b;
+  color: #FFF;
+  padding: 1rem 2rem;
+}
+
+.module__body {
+  padding: 2rem;
+}
+
+.module__footer {
+  background: #EEE;
+  padding: 1rem 2rem;
+}
+
+.nav-tabs + .module {
+  border: 1px solid #DDD;
+  border-top: 0;
+}
+>>>>>>> 3183012927d5f893992fbbd95979bd8c72a61faf
 
 .tile {
   padding: 20px;
@@ -27,11 +228,16 @@ a:hover {
   position: relative;
   color: #fff;
 }
-.tile-content { z-index: 20; }
+
+.tile-content {
+  z-index: 20;
+}
+
 .tile-content > h2 {
   font-size: 3.5em;
   margin-top: 0;
 }
+
 .tile > .fa {
   color: rgba(0, 0, 0, 0.1);
   font-size: 5em;
@@ -40,15 +246,12 @@ a:hover {
   bottom: 0;
   z-index: 10;
 }
-.tile-speakers { background: #f56954; }
-.tile-talks { background: #1fa67a; }
-.tile-favorites { background: #ffb848; }
-.tile-selected { background: #852b99; }
 
-.logo {
-	max-width: 100%;
+.tile-speakers {
+  background: #f56954;
 }
 
+<<<<<<< HEAD
 .navbar-lsp {
 	background: #FFF;
 	border-bottom: 3px solid #444444;
@@ -61,19 +264,35 @@ a:hover {
 .navbar-lsp .navbar-nav > .active > a:focus {
 	background: #444444;
 	color: #FFF;
+=======
+.tile-talks {
+  background: #1fa67a;
 }
-.navbar-lsp .navbar-toggle { background: #000; }
-.navbar-lsp .icon-bar { background: #FFF; }
 
-.alert { margin: 20px 0; }
+.tile-favorites {
+  background: #ffb848;
+}
 
-.headline {
-	border-bottom: 1px solid #ccc;
-	box-shadow: 0 1px 0 #fff;
-	margin: 0.75em 0;
-	padding: 0.5em 0;
-	position: relative;
+.tile-selected {
+  background: #852b99;
+>>>>>>> 3183012927d5f893992fbbd95979bd8c72a61faf
+}
 
+/**
+ * SVG LOGO
+ */
+.primary-text,
+.megaphone-cover,
+.megaphone-end {
+  fill: #e24b3b;
+}
+
+.base-text,
+.megaphone-base {
+  fill: #EEEEEE;
+}
+
+<<<<<<< HEAD
 	font-family: 'Roboto', arial;
 	font-weight: 400;
 	text-transform: uppercase;
@@ -87,14 +306,24 @@ a:hover {
 	left: 0;
 	height: 4px;
 	width: 60px;
-
-	content: "";
+=======
+.event-logo {
+  max-width: 100%;
 }
 
-.intro--block {
-	display: block;
-	padding: 2em 0;
+.star-favorite {
+  color: #CCC;
 }
+>>>>>>> 3183012927d5f893992fbbd95979bd8c72a61faf
+
+.star-favorite--selected {
+  color: #f49c2c;
+}
+
+.check-select {
+  color: #CCC;
+}
+<<<<<<< HEAD
 .intro-body {
 	margin: 0;
 	color: #444444;
@@ -105,63 +334,55 @@ a:hover {
 }
 .intro-highlight {
 	color: #1fbae2;
+=======
+
+.check-select--selected {
+  color: #f49c2c;
 }
 
-.home-page .module {
-  box-shadow: none;
-  background: transparent;
-  border: none;
-}
-.module {
-	position: relative;
-	display: block;
-	padding: 8px;
-	box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
-	border: 6px solid #FFF;
-	background: #FFF;
+.navbar-opencfp {
+  background: #374146;
+>>>>>>> 3183012927d5f893992fbbd95979bd8c72a61faf
 }
 
-.profile-photo {
-  border: 6px solid #eee;
-  margin: 1rem 0;
-  width: 250px;
-  height: 250px;
+.navbar-opencfp .navbar-nav > li > a {
+  border-top: 3px solid transparent;
+  color: #FFF;
+  -webkit-transition: border .2s ease-in-out;
 }
 
-/**
- * Base Button Object
- * @tags ^button
- * @format
- * <a href="#" class="btn">Register</a>
- * <button class="btn">Register</button>
- * <input type="submit" class="btn" value="Register">
- */
-.lsp-btn {
-    border: none;
-    display: inline-block;
-    margin: 0;
-    padding: 0.5em;
-    cursor: pointer;
-    font: inherit;
-    line-height: 1;
-}
-.lsp-btn,
-.lsp-btn:hover {
-    text-decoration: none;
+.navbar-opencfp .navbar-nav > li > a:hover,
+.navbar-opencfp .navbar-nav > .active > a,
+.navbar-opencfp .navbar-nav > .active > a:hover,
+.navbar-opencfp .navbar-nav > .active > a:focus {
+  background: none;
+  border-color: #e24b3b;
 }
 
-/**
- * Button Sizes
- * @tags ^button
- * @extends btn
- */
-.lsp-btn-xsmall { font-size: 1rem; }
-.lsp-btn-small { font-size: 1.5rem; }
-.lsp-btn-medium { font-size: 2rem; }
-.lsp-btn-large { font-size: 3rem; }
-.lsp-btn-xlarge { font-size: 4rem; }
-.lsp-btn--full { display: block; }
+.navbar-opencfp .navbar-toggle {
+  background: #FFF;
+}
 
+.navbar-opencfp .icon-bar {
+  background: #CCC;
+}
+
+.nav-sidebar {
+  margin-left: -20px;
+  margin-right: -21px;
+  margin-bottom: 20px;
+}
+
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+  color: #FFF;
+}
+.nav-sidebar > li > a:hover {
+  background: #71738b;
+}
+
+<<<<<<< HEAD
 /**
  * Primary Button Style
  * @tags ^button
@@ -200,4 +421,20 @@ a:hover {
 /* Supporting marketing content */
 .marketing {
 	margin: 60px 0;
+=======
+.nav-icon {
+  display: inline-block;
+  margin-right: 0.5rem;
+  fill: #FFF;
+}
+
+.icon-16 {
+  height: 16px;
+  width: 16px;
+}
+
+.icon-12 {
+  height: 12px;
+  width: 12px;
+>>>>>>> 3183012927d5f893992fbbd95979bd8c72a61faf
 }
