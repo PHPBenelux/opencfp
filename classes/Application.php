@@ -303,7 +303,9 @@ class Application extends SilexApplication
                     $message = $app['twig']->render('error/404.twig');
                     break;
                 default:
-                    $message = $app['twig']->render('error/500.twig');
+                    $message = $app['twig']->render('error/500.twig', array (
+                        'response' => ('development' === $this['env'] ? var_export($e, 1) : false)
+                    ));
             }
 
             return new Response($message, $code);

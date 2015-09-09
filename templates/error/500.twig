@@ -3,6 +3,11 @@
 {% block content %}
     <div class="jumbotron">
         <h1>Internal Server Error!</h1>
+        {% if response %}
+        <pre>
+            {{ response }}
+        </pre>
+        {% endif %}
     </div>
     {% include "_marketing.twig" %}
 {% endblock %}
