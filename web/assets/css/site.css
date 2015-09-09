@@ -4,13 +4,14 @@ body {
   font-size: 1.6rem;
   padding: 5.5rem 0;
 }
-
+/** original: #e24b3b, #e97467 **/
+/** PHPBenelux Theme: dark-blue: rgb(47, 142, 211), light-blue: #169edc **/
 a {
-  color: #e24b3b;
+  color: rgb(47, 142, 211);
 }
 
 a:hover {
-  color: #e97467;
+  color: #169edc;
 }
 
 .dashboard {
@@ -18,7 +19,7 @@ a:hover {
 }
 
 .header {
-  background: #e24b3b;
+  background: rgb(47, 142, 211);
   color: #FFF;
   padding: 6rem 0;
 }
@@ -47,7 +48,7 @@ a:hover {
 }
 
 .section--primary {
-  background: #e24b3b;
+  background: rgb(47, 142, 211);
   color: #FFF;
 }
 
@@ -140,12 +141,12 @@ a:hover {
  */
 .btn-opencfp--primary {
   background: #FFF;
-  color: #e24b3b;
+  color: rgb(47, 142, 211);
 }
 
 .btn-opencfp--primary:hover {
   background: #F7F7F7;
-  color: #e24b3b;
+  color: rgb(47, 142, 211);
 }
 
 .btn-opencfp--light {
@@ -166,7 +167,7 @@ a:hover {
 
 .btn-opencfp--outlined:hover {
   background: #FFF;
-  color: #e24b3b;
+  color: rgb(47, 142, 211);
 }
 
 .btn-opencfp--centered {
@@ -184,7 +185,7 @@ a:hover {
 }
 
 .module__header {
-  background: #e24b3b;
+  background: rgb(47, 142, 211);
   color: #FFF;
   padding: 1rem 2rem;
 }
@@ -252,7 +253,7 @@ a:hover {
 .primary-text,
 .megaphone-cover,
 .megaphone-end {
-  fill: #e24b3b;
+  fill: rgb(47, 142, 211);
 }
 
 .base-text,
@@ -295,7 +296,7 @@ a:hover {
 .navbar-opencfp .navbar-nav > .active > a:hover,
 .navbar-opencfp .navbar-nav > .active > a:focus {
   background: none;
-  border-color: #e24b3b;
+  border-color: rgb(47, 142, 211);
 }
 
 .navbar-opencfp .navbar-toggle {
