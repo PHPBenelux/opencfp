@@ -124,9 +124,9 @@ class TalkForm extends Form
     public function validateLevel()
     {
         $validLevels = array(
-            'overview',
-            'handson',
-            'indepth'
+            'entry',
+            'mid',
+            'advanced'
         );
 
         if (empty($this->_cleanData['level']) || !isset($this->_cleanData['level'])) {
@@ -147,20 +147,11 @@ class TalkForm extends Form
     public function validateCategory()
     {
         $validCategories = array(
-            'phpfuture',
-            'virtualization',
-            'devlife',
-            'continuousdelivery',
-            'security',
-<<<<<<< HEAD:classes/OpenCFP/Form/TalkForm.php
-            'responsive',
+            'development',
+            'framework',
+            'database',
             'testing',
-            'vcs',
-            'ux',
-            'architectures',
-        	'crossingphp',
-        	'other'
-=======
+            'security',
             'devops',
             'api',
             'javascript',
@@ -168,7 +159,6 @@ class TalkForm extends Form
             'other',
             'continuousdelivery',
             'ibmi'
->>>>>>> 3183012927d5f893992fbbd95979bd8c72a61faf:classes/Http/Form/TalkForm.php
         );
 
         if (empty($this->_cleanData['category']) || !isset($this->_cleanData['category'])) {

@@ -1,25 +1,25 @@
 {% extends "layouts/dashboard.twig" %}
 {% block scripts %}
-{{ parent() }}
-<script type="text/javascript">
-function deleteTalk(tid) {
-    $.ajax({
-        type: "POST",
-        url: "/talk/delete",
-        data: "tid=" + tid + "&user_id=" + {{ user.id }},
-        success: function(data, textStatus, jqXHR) {
-            if (data.delete == 'ok') {
-                alert("Deleted talk!");
-                $("#talk-"+tid).remove();
-            } else if (data.delete == 'no-user') {
-                alert("You must be logged in to delete talks")
-            } else {
-                alert("Unable to delete talk");
-            }
+    {{ parent() }}
+    <script type="text/javascript">
+        function deleteTalk(tid) {
+            $.ajax({
+                type: "POST",
+                url: "/talk/delete",
+                data: "tid=" + tid + "&user_id=" + {{ user.id }},
+                success: function(data, textStatus, jqXHR) {
+                    if (data.delete == 'ok') {
+                        alert("Deleted talk!");
+                        $("#talk-"+tid).remove();
+                    } else if (data.delete == 'no-user') {
+                        alert("You must be logged in to delete talks")
+                    } else {
+                        alert("Unable to delete talk");
+                    }
+                }
+            });
         }
-    });
-}
-</script>
+    </script>
 {% endblock %}
 {% block content %}
     <span class="pull-right">Welcome <strong>{{ profile.name }}</strong></span>
@@ -38,17 +38,6 @@ function deleteTalk(tid) {
         </div>
         <div class="col-md-9">
             <br />
-<<<<<<< HEAD
-            <strong>Name:</strong> {{ first_name }} {{ last_name }} <a href="https://twitter.com/@{{ twitter }}" title="{{ first_name }} {{ last_name }} on Twitter">@{{ twitter }}</a><br />
-            <strong>Company:</strong> {{ company }}<br />
-            <strong>Airport:</strong> {{ airport }}<br />
-            <strong>Bio:</strong> {{ speaker_bio }}<br /><br />
-            <strong>Other Info:</strong> {{ speaker_info }}<br /><br />
-            
-            <strong>Need Transportation:</strong> {% if transportation == '1' %} Yes {% else %} No {% endif %}<br />
-            <strong>Need Hotel:</strong> {% if hotel == '1' %} Yes {% else %} No {% endif %}<br />
-            <strong>Need Meat:</strong> {% if vegetarian == '0' %} Yes {% else %} No {% endif %}
-=======
             <strong>Name:</strong> {{ profile.name }} <a href="https://twitter.com/@{{ profile.twitter }}" title="{{ profile.name }} on Twitter">@{{ profile.twitter }}</a><br />
             <strong>Company:</strong> {{ profile.company }}<br />
             <strong>Airport:</strong> {{ profile.airport }}<br />
@@ -57,14 +46,13 @@ function deleteTalk(tid) {
 
             <strong>Need Transportation:</strong> {% if profile.transportation == '1' %} Yes {% else %} No {% endif %}<br />
             <strong>Need Hotel:</strong> {% if profile.hotel == '1' %} Yes {% else %} No {% endif %}
->>>>>>> 3183012927d5f893992fbbd95979bd8c72a61faf
         </div>
     </div>
 
     <h2 class="headline">My Talks</h2>
     {% if profile.talks is not empty %}
-    <table class="table table-striped">
-        <thead>
+        <table class="table table-striped">
+            <thead>
             <tr>
                 <th>Talk Name</th>
                 <th>Type</th>
@@ -73,24 +61,24 @@ function deleteTalk(tid) {
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for talk in profile.talks %}
-            <tr id="talk-{{ talk.id }}">
-                <td><b>{{ talk.title|raw }}</b></td>
-                <td>{{ talk.type }}</td>
-                <td>{{ talk.category }}</td>
-                <td>{{ talk.created_at|date("F jS \\a\\t g:ia T") }}</td>
-                {% if cfp_open %}
-                    <td><a href="{{ url('talk_edit', { id: talk.id }) }}">Edit</a></td>
-                {% else %}
-                    <td><a href="{{ url('talk_view', { id: talk.id }) }}">View</a></td>
-                {% endif %}
-                <td><a href="#" onClick="deleteTalk('{{ talk.id }}');return false;">Delete</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for talk in profile.talks %}
+                <tr id="talk-{{ talk.id }}">
+                    <td><b>{{ talk.title|raw }}</b></td>
+                    <td>{{ talk.type }}</td>
+                    <td>{{ talk.category }}</td>
+                    <td>{{ talk.created_at|date("F jS \\a\\t g:ia T") }}</td>
+                    {% if cfp_open %}
+                        <td><a href="{{ url('talk_edit', { id: talk.id }) }}">Edit</a></td>
+                    {% else %}
+                        <td><a href="{{ url('talk_view', { id: talk.id }) }}">View</a></td>
+                    {% endif %}
+                    <td><a href="#" onClick="deleteTalk('{{ talk.id }}');return false;">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     {% else %}
         You currently have no talks submitted.
     {% endif %}
