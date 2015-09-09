@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+
+    RewriteEngine On
+
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}/maintenance\.html !-f
+    RewriteRule ^ index.php [QSA,L]
+
+    RewriteCond %{DOCUMENT_ROOT}/maintenance\.html -f
+    RewriteRule ^ maintenance.html [QSA,L]
+</IfModule>
+
+SetEnv CFP_ENV development
+DirectoryIndex maintenance.html index.html index.php
