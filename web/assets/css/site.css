@@ -282,12 +282,13 @@ a:hover {
 }
 
 .navbar-opencfp {
-  background: #374146;
+  background: #ffffff;
+  border-bottom: 1px solid rgb(47, 142, 211);
 }
 
 .navbar-opencfp .navbar-nav > li > a {
   border-top: 3px solid transparent;
-  color: #FFF;
+  color: rgb(47, 142, 211);
   -webkit-transition: border .2s ease-in-out;
 }
 
