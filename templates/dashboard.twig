@@ -22,7 +22,7 @@
     </script>
 {% endblock %}
 {% block content %}
-    <span class="pull-right">Welcome <strong>{{ profile.name }}</strong></span>
+    <span class="pull-right">Welcome <strong>{{ profile.name|e }}</strong></span>
 
     <h2 class="headline">My Profile</h2>
     <div class="row">
