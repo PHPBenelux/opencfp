@@ -38,8 +38,8 @@
         </div>
         <div class="col-md-9">
             <br />
-            <strong>Name:</strong> {{ profile.name }} <a href="https://twitter.com/@{{ profile.twitter }}" title="{{ profile.name }} on Twitter">@{{ profile.twitter }}</a><br />
-            <strong>Company:</strong> {{ profile.company }}<br />
+            <strong>Name:</strong> {{ profile.name|e }} <a href="https://twitter.com/@{{ profile.twitter }}" title="{{ profile.name|e }} on Twitter">@{{ profile.twitter|e }}</a><br />
+            <strong>Company:</strong> {{ profile.company|e }}<br />
             <strong>Airport:</strong> {{ profile.airport }}<br />
             <strong>Bio:</strong> {{ profile.bio|striptags|markdown }}<br /><br />
             <strong>Other Info:</strong> {{ profile.info|striptags|markdown }}<br /><br />
