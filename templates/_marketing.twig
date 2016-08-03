@@ -1,20 +1,30 @@
-<div class="row marketing">
-    <div class="col-md-6">
-        <h4 class="headline">Got a talk idea? We want to see it!</h4>
-        <p>
-            We’re pleased to announce a brand new edition of the {{ site.title }}.
-        </p>
-        <p>
-            In our 6th edition you as community members from the BENELUX and beyond 
-            come together to learn and share information about the latest trends and 
-            technologies in professional PHP and web development.<br/>
-        <ul>
-            <li><strong>When:</strong> January 23 &amp; 24, 2015</li>
-            <li><strong>Where:</strong> Ter Elst, Edeghem, Belgium</li>
-        </ul>
-        </p>
-        
-        <h4 class="headline">About the {{ site.title }}</h4>
+<div class="container">
+    <div class="section row">
+        <div class="col-md-6">
+            <h3 class="headline headline--beta">Got a talk idea? We want to see it!</h3>
+            <p>
+                We’re pleased to announce our conference, {{ site.title }} should be
+                one of the best PHP conferences where community members from around
+                the world come together to learn and share information about the latest
+                trends and technologies in professional PHP development.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h3 class="headline headline--beta">Speaker Package</h3>
+            <p>
+                We know speakers are key to the success of a conference and hope
+                you will submit a talk.  In appreciation of your efforts, our speaker
+                compensation package includes:
+
+                <p><a href="{{ url('speaker_package') }}">View Full Speaker Package</a></p>
+            </p>
+        </div>
+    </div>
+</div>
+
+<section class="section section--primary">
+    <div class="container">
+        <h2 class="headline headline--beta headline--centered">Diversity Matters!</h2>
         <p>
             {{ site.title }} is committed to creating a conference that is as inclusive as possible.
             We want to showcase talent available in the BENELUX but welcome speakers from all over the planet.
@@ -23,28 +33,4 @@
             The conference is a place where ideas are exchanged, inspiration is gained, old friends get together, and new friends are made.
         </p>
     </div>
-    <div class="col-md-6">
-        <h4 class="headline">Speaker Package</h4>
-        <p>
-            We know speakers are key to the success of a conference and hope 
-            you will submit a talk.  In appreciation of your efforts, our speaker 
-            compensation package includes:
-                
-            <ul>
-                <li>Pick-up service from Brussels Airport (Zaventem) / Antwerp central station (train) to the hotel and back;</li>
-                <li>Three hotel nights (from Thursday afternoon until Sunday morning);</li>
-                <li>Conference only access (tutorials not included);</li>
-                <li>Lunch, receptions and activities included in conference;</li>
-                <li>An invitation to our speakers dinner on Thursday the 22nd of January;</li>
-                <li>Up to 300 euro of reimbursement for travel expenses.</li>            
-            </ul>
-        </p>
-        
-        <h4 class="headline">Don't wait, Submit now!</h4>
-        <p>
-            We look forward to all of the great submissions for this year's event! Remember, you can
-            submit more than one session idea too! This year's submission deadline is <strong>{{ site.enddate }}</strong>
-            so don't put it off!
-        </p>
-    </div>
-</div>
+</section>
