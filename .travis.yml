@@ -1,24 +1,44 @@
 language: php
 
-php:
-  - 5.5
-  - 5.4
+sudo: false
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.0
+      env: WITH_COVERAGE=true
+    - php: 5.6
+      env: WITH_CS=true
+    - php: 5.5
+
+env:
+  global:
+    - TRAVIS_DB=cfp_test
+    - CODECLIMATE_REPO_TOKEN=9deb249b01a414d979959cfd05a4c351b19a5959858653b20276454d4189edc3
 
 # cache composer downloads so installing is quicker
 cache:
   directories:
-    - $HOME/.composer
+    - $HOME/.composer/cache
 
-before_script:
+before_install:
+  - if [[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_BRANCH" == "master" ]]; then COLLECT_COVERAGE=true; else COLLECT_COVERAGE=false; fi
+  - if [[ "$COLLECT_COVERAGE" == "false" ]]; then phpenv config-rm xdebug.ini; fi
   - composer self-update
+  - composer validate --no-check-publish
+
+install:
   - composer install
 
-  - cp config/config.travis.ini.dist config/config.development.ini
-
-  # Hack to write outgoing e-mails to stdout in order for the WebTest to pass.
-  # http://serverfault.com/a/248838/17428
-  - sudo python -m smtpd -n -c DebuggingServer localhost:2525 1> /dev/null &
-  - sleep 3
+before_script:
+  - sh tools/travis/setup-mail.sh
+  - mysql -e "CREATE DATABASE $TRAVIS_DB" -uroot
+  - cp phinx.yml.dist phinx.yml
+  - vendor/bin/phinx migrate -e testing
 
 script:
-  - cd tests; phpunit
+  - if [[ "$COLLECT_COVERAGE" == "true" ]]; then vendor/bin/phpunit --coverage-clover build/logs/clover.xml; else vendor/bin/phpunit; fi
+  - if [[ "$WITH_CS" == "true" ]]; then vendor/bin/php-cs-fixer fix --verbose --diff; fi
+
+after_success:
+  - if [[ "$COLLECT_COVERAGE" == "true" ]]; then vendor/bin/test-reporter --coverage-report build/logs/clover.xml; fi

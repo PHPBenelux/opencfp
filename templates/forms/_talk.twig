@@ -1,4 +1,4 @@
-<form action="{{ site.url }}{{ formAction }}" method="POST" class="form-horizontal">
+<form action="{{ formAction }}" method="POST" class="form-horizontal">
     {% if id is defined %}
         <input name="id" type="hidden" value="{{ id }}">
     {% endif %}
@@ -12,6 +12,7 @@
         <label for="form-talk-description" class="col-sm-2 control-label">Description/Abstract</label>
         <div class="col-sm-10">
             <textarea id="form-talk-description" name="description" class="form-control" placeholder="Give a description of your talk (Abstract)" rows="10">{{ description }}</textarea>
+            <p class="help-block">Speaker abstract can be written using <a href="http://daringfireball.net/projects/markdown/basics" target="_blank">markdown</a> to support links</p>
         </div>
     </div>
     <div class="form-group">
@@ -23,38 +24,38 @@
     <div class="form-group">
         <label for="form-talk-type" class="col-sm-2 control-label">Talk Type</label>
         <div class="col-sm-10">
-            <select id="form-talk-type" name="type">
-                <option value="regular" {% if type == 'regular' %}selected {% endif %}>Regular (1 hour including QA)</option>
-                <option value="tutorial" {% if type == 'tutorial' %}selected {% endif %}>Tutorial (3 hours)</option>
+            <select id="form-talk-type" name="type" class="form-control">
+                <option value="regular" {% if type == 'regular' %}selected {% endif %}>Regular</option>
+                <option value="tutorial" {% if type == 'tutorial' %}selected {% endif %}>Tutorial</option>
             </select>
         </div>
     </div>
     <div class="form-group">
         <label for="form-talk-category" class="col-sm-2 control-label">Talk Category</label>
         <div class="col-sm-10">
-            <select id="form-talk-category" name="category">
-                <option value="phpfuture" {% if category == 'phpfuture' %}selected {% endif %}>PHP and it's future</option>
-                <option value="virtualization" {% if category == 'virtualization' %}selected {% endif %}>Virtualization and environments</option>
-                <option value="devlife" {% if category == 'devlife' %}selected {% endif %}>Development life style</option>
+            <select id="form-talk-category" name="category" class="form-control">
+                <option value="api" {% if category == 'api' %}selected {% endif %}>APIs (REST, SOAP, etc.)</option>
                 <option value="continuousdelivery" {% if category == 'continuousdelivery' %}selected {% endif %}>Continuous Delivery</option>
+                <option value="database" {% if category == 'database' %}selected {% endif %}>Database</option>
+                <option value="development" {% if category == 'development' %}selected {% endif %}>Development</option>
+                <option value="devops" {% if category == 'devops' %}selected {% endif %}>Devops</option>
+                <option value="framework" {% if category == 'framework' %}selected {% endif %}>Framework</option>
+                <option value="ibmi" {% if category == 'ibmi' %}selected {% endif %}>IBMi</option>
+                <option value="javascript" {% if category == 'javascript' %}selected {% endif %}>JavaScript</option>
                 <option value="security" {% if category == 'security' %}selected {% endif %}>Security</option>
-                <option value="responsive" {% if category == 'responsive' %}selected {% endif %}>Responsive design</option>
-                <option value="testing" {% if category == 'testing' %}selected {% endif %}>Testing (unit, functional, etc.)</option>
-                <option value="vcs" {% if category == 'vcs' %}selected {% endif %}>Version control</option>
-                <option value="ux" {% if category == 'ux' %}selected {% endif %}>User Experience / Usability</option>
-                <option value="architectures" {% if category == 'architectures' %}selected {% endif %}>(Big) Data / Architectures</option>
-                <option value="crossingphp" {% if category == 'crossingphp' %}selected {% endif %}>Crossing the PHP bridge</option>
+                <option value="testing" {% if category == 'testing' %}selected {% endif %}>Testing</option>
+                <option value="uiux" {% if category == 'uiux' %}selected {% endif %}>UI/UX</option>
                 <option value="other" {% if category == 'other' %}selected {% endif %}>Other</option>
             </select>
         </div>
     </div>
     <div class="form-group">
-        <label for="form-talk-level" class="col-sm-2 control-label">Session Type</label>
+        <label for="form-talk-level" class="col-sm-2 control-label">Talk Level</label>
         <div class="col-sm-10">
-            <select id="form-talk-level" name="level">
-                <option value="overview" {% if level == 'overview' %}selected {% endif %}>Overview</option>
-                <option value="handson" {% if level == 'handson' %}selected {% endif %}>Hands on</option>
-                <option value="indepth" {% if level == 'indepth' %}selected {% endif %}>In depth</option>
+            <select id="form-talk-level" name="level" class="form-control">
+                <option value="entry" {% if level == 'entry' %}selected {% endif %}>Entry level</option>
+                <option value="mid" {% if level == 'mid' %}selected {% endif %}>Mid-level</option>
+                <option value="advanced" {% if level == 'advanced' %}selected {% endif %}>Advanced</option>
             </select>
         </div>
     </div>
@@ -62,18 +63,27 @@
         <label for="form-talk-other" class="col-sm-2 control-label">Additional Talk Information</label>
         <div class="col-sm-10">
             <textarea id="form-talk-other" name="other" class="form-control" placeholder="Other Considerations, such as Joind.In, Lanyrd, local user group, etc." rows="10">{{ other }}</textarea>
+            <p class="help-block">Talk additional information can be written using <a href="http://daringfireball.net/projects/markdown/basics" target="_blank">markdown</a> to support links</p>
         </div>
     </div>
     <div class="form-group">
         <label for="form-sponsor" class="col-sm-2 control-label">Company Sponsorship</label>
-        <div class="col-sm-10 checkbox">
-            <input id="form-sponsor" name="sponsor" type="checkbox" value="1" class="checkbox" {% if sponsor == '1' %}checked{% endif %}> Is your company sponsoring, or would they like to?
+        <div class="col-sm-10">
+            <div class="checkbox">
+                <label for="form-sponsor">
+                    <input id="form-sponsor" name="sponsor" type="checkbox" value="1" {% if sponsor == '1' %}checked{% endif %}> Is your company sponsoring, or would they like to?
+                </label>
+            </div>
         </div>
     </div>
     <div class="form-group">
         <label for="form-desired" class="col-sm-2 control-label">Most Desired</label>
-        <div class="col-sm-10 checkbox">
-            <input id="form-desired" name="desired" type="checkbox" value="1" class="checkbox" {% if desired == '1' %}checked{% endif %}> Of your submissions, is this your best?
+        <div class="col-sm-10">
+            <div class="checkbox">
+                <label for="form-desired">
+                    <input id="form-desired" name="desired" type="checkbox" value="1" {% if desired == '1' %}checked{% endif %}> Of your submissions, is this your best?
+                </label>
+            </div>
         </div>
     </div>
     <div class="form-group">
