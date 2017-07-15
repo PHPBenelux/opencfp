@@ -4,6 +4,9 @@
         <title>{% block title %}{{ site.title }}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
+        <style type="text/css">
+            @import url(//fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,500,600,700,800,900|Oswald:100,200,300,400,500,600,700,800,900|Bitter:100,200,300,400,500,600,700,800,900|Acme:400|Oswald:400,700|Open+Sans:400,700,800&subset=latin,latin-ext,cyrillic,cyrillic-ext,greek-ext,greek,vietnamese);
+        </style>
         <link href="/assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="/assets/css/site.css" rel="stylesheet" media="screen">
         <link href="/assets/css/font-awesome.min.css" rel="stylesheet" media="screen">
@@ -12,7 +15,8 @@
     <body{% if "/" == current_page %} class="home-page"{% endif %}>
         <div class="navbar navbar-opencfp navbar-fixed-top section--full" role="navigation">
             <a href="{{ url('homepage') }}" class="logo pull-left">
-                <img data-src="/assets/img/logo.svg" class="svg-inject" alt="Open CFP">
+                <!--img data-src="/assets/img/logo.svg" class="svg-inject" alt="Open CFP"-->
+                <img src="/assets/img/logo-2018-2x.png" class="svg-inject" alt="Open CFP" width="200" height="50">
             </a>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
