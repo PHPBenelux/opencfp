@@ -86,27 +86,27 @@ class TalksController extends BaseController
         }
 
         switch (strtolower($filter)) {
-            case "selected":
+            case 'selected':
                 return $talk_mapper->getSelected($admin_user_id, $options);
                 break;
 
-            case "notviewed":
+            case 'notviewed':
                 return $talk_mapper->getNotViewedByUserId($admin_user_id, $options);
                 break;
 
-            case "notrated":
+            case 'notrated':
                 return $talk_mapper->getNotRatedByUserId($admin_user_id, $options);
                 break;
 
-            case "rated":
+            case 'rated':
                 return $talk_mapper->getRatedByUserId($admin_user_id, $options);
                 break;
 
-            case "viewed":
+            case 'viewed':
                 return $talk_mapper->getViewedByUserId($admin_user_id, $options);
                 break;
 
-            case "favorited":
+            case 'favorited':
                 return $talk_mapper->getFavoritesByUserId($admin_user_id, $options);
                 break;
 
@@ -128,7 +128,6 @@ class TalksController extends BaseController
         $talk_mapper = $spot->mapper(\OpenCFP\Domain\Entity\Talk::class);
         $meta_mapper = $spot->mapper(\OpenCFP\Domain\Entity\TalkMeta::class);
         $talk_id = $req->get('id');
-
         $talk = $talk_mapper->where(['id' => $talk_id])
             ->with(['comments'])
             ->first();
@@ -137,12 +136,11 @@ class TalksController extends BaseController
             $this->service('session')->set('flash', [
                 'type' => 'error',
                 'short' => 'Error',
-                'ext' => "Could not find requested talk",
+                'ext' => 'Could not find requested talk',
             ]);
 
             return $this->app->redirect($this->url('admin_talks'));
         }
-
         /* @var Sentry $sentry */
         $sentry = $this->service('sentry');
 
@@ -188,7 +186,6 @@ class TalksController extends BaseController
             'speaker' => $speaker,
             'otherTalks' => $otherTalks,
         ];
-
         return $this->render('admin/talks/view.twig', $templateData);
     }
 
@@ -306,7 +303,14 @@ class TalksController extends BaseController
 
         $mapper = $spot->mapper(\OpenCFP\Domain\Entity\Talk::class);
         $talk = $mapper->get($req->get('id'));
-        $talk->selected = $status;
+
+        $selected = 1;
+
+        if ($status == false) {
+            $selected = 0;
+        }
+
+        $talk->selected = $selected;
         $mapper->save($talk);
 
         return true;
@@ -340,7 +344,7 @@ class TalksController extends BaseController
         $this->service('session')->set('flash', [
                 'type' => 'success',
                 'short' => 'Success',
-                'ext' => "Comment Added!",
+                'ext' => 'Comment Added!',
             ]);
 
         return $this->app->redirect($this->url('admin_talk_view', ['id' => $talk_id]));

@@ -20,6 +20,7 @@ class SignupForm extends Form
         'transportation',
         'hotel',
         'speaker_photo',
+        'agree_coc',
     ];
 
     /**
@@ -32,9 +33,11 @@ class SignupForm extends Form
     {
         $this->sanitize();
         $valid_passwords = true;
+        $agree_coc = true;
 
         if ($action == 'create') {
             $valid_passwords = $this->validatePasswords();
+            $agree_coc = $this->validateAgreeCoc();
         }
 
         $valid_email = $this->validateEmail();
@@ -63,7 +66,8 @@ class SignupForm extends Form
             $valid_twitter &&
             $valid_speaker_info &&
             $valid_speaker_bio &&
-            $valid_speaker_photo
+            $valid_speaker_photo &&
+            $agree_coc
         );
     }
 
@@ -89,14 +93,14 @@ class SignupForm extends Form
 
         // Check if uploaded file is greater than 5MB
         if ($this->_taintedData['speaker_photo']->getClientSize() > (5 * 1048576)) {
-            $this->_addErrorMessage("Speaker photo can not be larger than 5MB");
+            $this->_addErrorMessage('Speaker photo can not be larger than 5MB');
 
             return false;
         }
 
         // Check if photo is in the mime-type white list
         if (!in_array($this->_taintedData['speaker_photo']->getMimeType(), $allowedMimeTypes)) {
-            $this->_addErrorMessage("Speaker photo must be a jpg or png");
+            $this->_addErrorMessage('Speaker photo must be a jpg or png');
 
             return false;
         }
@@ -113,7 +117,7 @@ class SignupForm extends Form
     public function validateEmail()
     {
         if (!isset($this->_taintedData['email']) || $this->_taintedData['email'] == '') {
-            $this->_addErrorMessage("Missing email");
+            $this->_addErrorMessage('Missing email');
 
             return false;
         }
@@ -121,7 +125,7 @@ class SignupForm extends Form
         $response = filter_var($this->_taintedData['email'], FILTER_VALIDATE_EMAIL);
 
         if (!$response) {
-            $this->_addErrorMessage("Invalid email address format");
+            $this->_addErrorMessage('Invalid email address format');
 
             return false;
         }
@@ -140,25 +144,25 @@ class SignupForm extends Form
         $passwd2 = $this->_cleanData['password2'];
 
         if ($passwd == '' || $passwd2 == '') {
-            $this->_addErrorMessage("Missing passwords");
+            $this->_addErrorMessage('Missing passwords');
 
             return false;
         }
 
         if ($passwd !== $passwd2) {
-            $this->_addErrorMessage("The submitted passwords do not match");
+            $this->_addErrorMessage('The submitted passwords do not match');
 
             return false;
         }
 
         if (strlen($passwd) < 5 && strlen($passwd2) < 5) {
-            $this->_addErrorMessage("The submitted password must be at least 5 characters long");
+            $this->_addErrorMessage('The submitted password must be at least 5 characters long');
 
             return false;
         }
 
-        if ($passwd !== str_replace(" ", "", $passwd)) {
-            $this->_addErrorMessage("The submitted password contains invalid characters");
+        if ($passwd !== str_replace(' ', '', $passwd)) {
+            $this->_addErrorMessage('The submitted password contains invalid characters');
 
             return false;
         }
@@ -208,19 +212,19 @@ class SignupForm extends Form
         $last_name = $this->_cleanData['last_name'];
 
         if (empty($last_name)) {
-            $this->_addErrorMessage("Last name was blank or contained unwanted characters");
+            $this->_addErrorMessage('Last name was blank or contained unwanted characters');
 
             return false;
         }
 
         if (strlen($last_name) > 255) {
-            $this->_addErrorMessage("Last name cannot be longer than 255 characters");
+            $this->_addErrorMessage('Last name cannot be longer than 255 characters');
 
             return false;
         }
 
         if ($last_name !== $this->_taintedData['last_name']) {
-            $this->_addErrorMessage("Last name data did not match after sanitizing");
+            $this->_addErrorMessage('Last name data did not match after sanitizing');
 
             return false;
         }
@@ -256,7 +260,7 @@ class SignupForm extends Form
         $speakerInfo = $this->_purifier->purify($speakerInfo);
 
         if (empty($speakerInfo)) {
-            $this->_addErrorMessage("You submitted speaker info but it was empty after sanitizing");
+            $this->_addErrorMessage('You submitted speaker info but it was empty after sanitizing');
             $validation_response = false;
         }
 
@@ -279,7 +283,7 @@ class SignupForm extends Form
         $speaker_bio = $this->_purifier->purify($speaker_bio);
 
         if (empty($speaker_bio)) {
-            $this->_addErrorMessage("You submitted speaker bio information but it was empty after sanitizing");
+            $this->_addErrorMessage('You submitted speaker bio information but it was empty after sanitizing');
             $validation_response = false;
         }
 
@@ -312,5 +316,19 @@ class SignupForm extends Form
                 $this->_taintedData['twitter']
             );
         }
+    }
+
+    private function validateAgreeCoc()
+    {
+        if (!$this->getOption('has_coc')) {
+            return true;
+        }
+
+        if ($this->_cleanData['agree_coc'] === 'agreed') {
+            return true;
+        }
+
+        $this->_addErrorMessage('You must agree to abide by our code of conduct in order to submit');
+        return false;
     }
 }
