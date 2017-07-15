@@ -8,11 +8,11 @@ body {
 }
 
 a {
-  color: rgb(27,117,187);
+  color: #7e8690;
 }
 
 a:hover {
-  color: rgb(0,176,216);
+  color: #5c636c;
 }
 
 .dashboard {
@@ -20,7 +20,7 @@ a:hover {
 }
 
 .header {
-  background: #FFF;
+  background: #bebebe url('/assets/img/running_track.jpg') no-repeat;
   color: #000;
   padding: 6rem 0;
 }
@@ -151,7 +151,7 @@ a:hover {
  */
 .btn-opencfp--primary,
 .btn-opencfp--primary:hover{
-  background: rgb(27,117,187);
+  background: #222222;
   color: #FFF;
 }
 
@@ -167,12 +167,12 @@ a:hover {
 
 .btn-opencfp--outlined {
   background: transparent;
-  border-color: rgb(27,117,187);
-  color: rgb(27,117,187);
+  border-color: #222222;
+  color: #222222;
 }
 
 .btn-opencfp--outlined:hover {
-  background: rgb(27,117,187);
+  background: #222222;
   color: #FFF;
 }
 
