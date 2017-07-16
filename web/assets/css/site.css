@@ -216,6 +216,11 @@ h4.headline--beta {
   padding: 1rem 2rem;
 }
 
+.module__footer--alpha {
+  background: #222 url('/assets/img/footer-bg.png');
+  padding: 1rem 2rem;
+}
+
 .nav-tabs + .module {
   border: 1px solid #DDD;
   border-top: 0;
