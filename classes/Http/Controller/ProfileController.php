@@ -55,6 +55,7 @@ class ProfileController extends BaseController
             'hotel' => $speaker_data['hotel'],
             'dietary_preferences' => $dietary_preferences,
             'dietary_preference' => $speaker_data['dietary_preference'],
+            'food_allergies' => $speaker_data['food_allergies'],
             'id' => $user->getId(),
             'formAction' => $this->url('user_update'),
             'buttonInfo' => 'Update Profile',
@@ -95,6 +96,7 @@ class ProfileController extends BaseController
             'transportation' => $req->get('transportation'),
             'hotel' => $req->get('hotel'),
             'dietary_preference' => $req->get('dietary_preference'),
+            'food_allergies' => $req->get('food_allergies') ?: null,
             'speaker_info' => $req->get('speaker_info') ?: null,
             'speaker_bio' => $req->get('speaker_bio') ?: null,
         ];
@@ -143,6 +145,7 @@ class ProfileController extends BaseController
             $user->transportation = (int) $sanitized_data['transportation'];
             $user->hotel = (int) $sanitized_data['hotel'];
             $user->dietary_preference = $sanitized_data['dietary_preference'];
+            $user->food_allergies = $sanitized_data['food_allergies'];
             $user->info = $sanitized_data['speaker_info'];
             $user->bio = $sanitized_data['speaker_bio'];
 
@@ -271,6 +274,8 @@ class ProfileController extends BaseController
         $user->airport = $sanitized_data['airport'];
         $user->transportation = $sanitized_data['transportation'];
         $user->hotel = $sanitized_data['hotel'];
+        $user->dietary_preference = $sanitized_data['dietary_preference'];
+        $user->food_allergies = $sanitized_data['food_allergies'];
         $user->info = $sanitized_data['speaker_info'];
         $user->bio = $sanitized_data['speaker_bio'];
 
