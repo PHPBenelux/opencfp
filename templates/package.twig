@@ -1,54 +1,77 @@
 {% extends "layouts/default.twig" %}
 {% block content %}
 <div class="container">
-    <h2 class="headline--beta">{{ site.title }} Speaker Information</h2>
+    <h2 class="headline">{{ site.title }} Speaker Information</h2>
     <p>
         We're committed to bringing together some of the best speakers from all around the
         world to share their knowledge with you here. We provide a travel and
         accommodation package to all selected speakers to help make this possible.
     </p>
-    <h4 class="headline--alpha">About the event</h4>
+    <h4 class="headline">About the event</h4>
+    <p>
+        PHPBenelux crew will arrange pickup and drop off rides for speakers from Brussels
+        Airport (BRU) or Antwerp Central Train Station.
+    </p>
     <p>
         Speakers will be provided with a projector, a wireless lapel microphone and a screen
         for their presentation (size depends on the room). Speakers should bring any equipment
-        they need to connect to projectors (VGA). It is also suggested that you reduce your
+        they need to connect to projectors (HDMI). It is also suggested that you reduce your
         dependency on the in-house internet connection as possible.
     </p>
     <p>
         When the Call for Papers closes, the organizers will sort through the submissions, making
         their selections. Speakers will be notified as soon as the selection process has been completed.
     </p>
-    <h4 class="headline--alpha">This year's package</h4>
+
+    <section class="section section--primary">
+        <div class="section-block">
+            <h4 class="headline headline--alpha">More diversity only possible with your help!</h4>
+            <p>
+                We want to ensure that all speakers have an equal opportunity to share their knowledge at our conference and
+                this is <strong>only possible if you submit your ideas</strong>! We will make sure that PHPBenelux Conference is a safe
+                and encouraging event where you're valued as an expert.
+            </p>
+        </div>
+    </section>
+    <h4 class="headline">This year's package</h4>
     <p>
         You are eligible for the speaker package if your topic is chosen for our conference. Our speaker package includes:
     </p>
     <ul>
-        <li>Full conference pass</li>
-        <li>For speakers remote to the Area:</li>
+        <li>Full conference pass (excluding workshops)</li>
+        <li>For all speakers:</li>
         <ul>
             <li>Complimentary airfare/travel</li>
-            <li>2 complimentary hotel nights</li>
+            <li>Full hotel coverage</li>
         </ul>
         <li>Lunch, receptions and activities included in regular conference</li>
-        <li>We'll pick you up and drop you off to/from the airport so you don't have to worry about it.</li>
+        <li>We'll pick you up and drop you off to/from the airport or train station.</li>
     </ul>
     <p>
         International speakers are encouraged to <a href="/">submit their ideas</a>, but because of budget restrictions,
         we can only accept a limited number of speakers from outside of Europe.
     </p>
-    <h4 class="headline">About the talks</h4>
-    <p>The duration of each talk is <strong>60 minutes</strong>. This includes Questions and Answers time (Q&A).
-       Generally the talk itself lasts 50 minutes and Q&A 10 minutes.
-    </p>
+    <section class="section section--primary">
+        <div class="section-block">
+            <h4 class="headline headline--alpha">About the talks</h4>
+            <p>The duration of each talk is <strong>60 minutes</strong>. This includes Questions and Answers time (Q&A).
+               Generally the talk itself lasts 50 minutes and Q&A 10 minutes.
+            </p>
+            <p>
+               A workshop lasts <strong>3 hours</strong>, and includes preferrably hands-on and Q&A time.
+            </p>
+        </div>
+    </section>
+    <h4 class="headline">Tips for increase your chances to be selected as speaker</h4>
     <p>
-       A workshop lasts <strong>3 hours</strong>, and includes preferrably hands-on and Q&A time.
-    </p>
-    <h4 class="headline--alpha">Tips for Submission</h4>
-    <p>
-        We <i>strongly</i> encourage potential speakers to submit more than one submission on more than one topic. The
+        We <i>strongly</i> encourage potential speakers to submit more than one submission on <strong>more than one</strong> topic. The
         more submissions you contribute, the more options you give us to pick you. Be sure your talk title and abstract
         define the exact topic you want to talk about and what you hope people will learn from the session. In previous
         years, some submissions sounded interesting but we just didn't have enough detail for them to make the final cut.
+    </p>
+    <p>
+        Please look at our <a href="/ideas">talk ideas</a> to find out what talks we would love to receive. If your talk
+        doesn't fit in our provided list of subjects, please make sure you check <i>other</i>.
     </p>
 </div>
 {% endblock %}
