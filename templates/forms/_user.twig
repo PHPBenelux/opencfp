@@ -89,6 +89,20 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <label for="form-dietary-preference" class="col-sm-2 control-label">Dietary preference</label>
+        <div class="col-sm-10">
+            <select id="form-dietary-preference" name="dietary_preference" class="form-control">
+                {% for key, value in dietary_preferences %}
+                    {% if dietary_preference == key %}
+                        <option value="{{ key }}" selected="selected">{{ value }}</option>
+                    {% else %}
+                        <option value="{{ key }}">{{ value }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
     {% endif %}
     <div class="form-group">
         <label for="form-user-photo" class="col-sm-2 control-label">Photo</label>
