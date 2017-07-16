@@ -82,6 +82,10 @@ a:hover {
   color: #ffffff;
 }
 
+h4.headline--beta {
+  font-size: 22px;
+}
+
 .headline--centered {
   text-align: center;
 }
@@ -183,6 +187,9 @@ a:hover {
 .module {
   background: #FFF;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  line-height: 120%;
 }
 
 .module--constrained {
@@ -191,7 +198,7 @@ a:hover {
 }
 
 .module__header {
-  background: rgb(27,117,187);
+  background: #222 url('/assets/img/footer-bg.png');
   color: #FFF;
   padding: 1rem 2rem;
 }
