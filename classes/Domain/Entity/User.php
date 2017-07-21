@@ -30,6 +30,8 @@ class User extends Entity
             'twitter' => ['type' => 'string', 'length' => 255],
             'airport' => ['type' => 'string', 'length' => 5],
             'hotel' => ['type' => 'smallint', 'value' => 0],
+            'dietary_preference' => ['type' => 'string', 'length' => 50],
+            'food_allergies' => ['type' => 'text'],
             'transportation' => ['type' => 'smallint', 'value' => 0],
             'info' => ['type' => 'text'],
             'bio' => ['type' => 'text'],

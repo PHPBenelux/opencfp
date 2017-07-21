@@ -38,6 +38,7 @@ class ProfileController extends BaseController
         
         $mapper = $spot->mapper('\OpenCFP\Domain\Entity\User');
         $speaker_data = $mapper->get($user->getId())->toArray();
+        $dietary_preferences = $this->getDietaryPreferences();
 
         $form_data = [
             'email' => $user->getLogin(),
@@ -52,6 +53,9 @@ class ProfileController extends BaseController
             'airport' => $speaker_data['airport'],
             'transportation' => $speaker_data['transportation'],
             'hotel' => $speaker_data['hotel'],
+            'dietary_preferences' => $dietary_preferences,
+            'dietary_preference' => $speaker_data['dietary_preference'],
+            'food_allergies' => $speaker_data['food_allergies'],
             'id' => $user->getId(),
             'formAction' => $this->url('user_update'),
             'buttonInfo' => 'Update Profile',
@@ -91,6 +95,8 @@ class ProfileController extends BaseController
             'airport' => $req->get('airport'),
             'transportation' => $req->get('transportation'),
             'hotel' => $req->get('hotel'),
+            'dietary_preference' => $req->get('dietary_preference'),
+            'food_allergies' => $req->get('food_allergies') ?: null,
             'speaker_info' => $req->get('speaker_info') ?: null,
             'speaker_bio' => $req->get('speaker_bio') ?: null,
         ];
@@ -138,6 +144,8 @@ class ProfileController extends BaseController
             $user->airport = $sanitized_data['airport'];
             $user->transportation = (int) $sanitized_data['transportation'];
             $user->hotel = (int) $sanitized_data['hotel'];
+            $user->dietary_preference = $sanitized_data['dietary_preference'];
+            $user->food_allergies = $sanitized_data['food_allergies'];
             $user->info = $sanitized_data['speaker_info'];
             $user->bio = $sanitized_data['speaker_bio'];
 
@@ -266,9 +274,24 @@ class ProfileController extends BaseController
         $user->airport = $sanitized_data['airport'];
         $user->transportation = $sanitized_data['transportation'];
         $user->hotel = $sanitized_data['hotel'];
+        $user->dietary_preference = $sanitized_data['dietary_preference'];
+        $user->food_allergies = $sanitized_data['food_allergies'];
         $user->info = $sanitized_data['speaker_info'];
         $user->bio = $sanitized_data['speaker_bio'];
 
         return $mapper->save($user);
+    }
+
+    private function getDietaryPreferences()
+    {
+        $preferences = $this->app->config('user.dietary');
+        if (null !== $preferences) {
+            return $preferences;
+        }
+        return [
+            'nopref' => 'No dietary preference',
+            'vegetarian' => 'Vegetarian',
+            'vegan' => 'Vegan',
+        ];
     }
 }

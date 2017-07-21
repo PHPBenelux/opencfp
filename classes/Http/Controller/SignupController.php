@@ -38,9 +38,13 @@ class SignupController extends BaseController
             return $this->redirectTo('homepage');
         }
 
+        $dietary_preferences = $this->getDietaryPreferences();
+
         return $this->render('user/create.twig', [
             'transportation' => 0,
             'hotel' => 0,
+            'dietary_preferences' => $dietary_preferences,
+            'dietary_preference' => 'nopref',
             'formAction' => $this->url('user_create'),
             'buttonInfo' => 'Create my speaker profile',
             'coc_link' => $this->app->config('application.coc_link'),
@@ -59,6 +63,8 @@ class SignupController extends BaseController
             'password' => $req->get('password'),
             'password2' => $req->get('password2'),
             'airport' => $req->get('airport'),
+            'dietary_preference' => $req->get('dietary_preference'),
+            'food_allergies' => $req->get('food_allergies') ?: null,
             'agree_coc' => $req->get('agree_coc'),
             'buttonInfo' => 'Create my speaker profile',
             'coc_link' => $app->config('application.coc_link'),
@@ -107,6 +113,8 @@ class SignupController extends BaseController
                     'email' => $sanitized_data['email'],
                     'password' => $sanitized_data['password'],
                     'airport' => $sanitized_data['airport'],
+                    'dietary_preference' => $sanitized_data['dietary_preference'],
+                    'food_allergies' => $sanitized_data['food_allergies'],
                     'activated' => 1,
                 ];
 
@@ -170,7 +178,21 @@ class SignupController extends BaseController
         }
 
         $form_data['flash'] = $this->getFlash($app);
+        $form_data['dietary_preferences'] = $this->getDietaryPreferences();
 
         return $this->render('user/create.twig', $form_data);
+    }
+
+    private function getDietaryPreferences()
+    {
+        $preferences = $this->app->config('user.dietary');
+        if (null !== $preferences) {
+            return $preferences;
+        }
+        return [
+            'nopref' => 'No dietary preference',
+            'vegetarian' => 'Vegetarian',
+            'vegan' => 'Vegan',
+        ];
     }
 }
