@@ -33,6 +33,8 @@ class TalkSubmission
             'category' => '',
             'desired' => '',
             'slides' => '',
+            'video_url' => '',
+            'rating_url' => '',
             'other' => '',
             'sponsor' => '',
             'user_id' => '',

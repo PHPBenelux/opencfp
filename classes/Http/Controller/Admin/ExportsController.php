@@ -79,7 +79,7 @@ class ExportsController extends BaseController
             unset($talks[$talk]['user'], $talks[$talk]['favourite']);
 
             if (!$attributed) {
-                unset($talks[$talk]['slides'], $talks[$talk]['other'], $talks[$talk]['sponsor'], $talks[$talk]['desired']);
+                unset($talks[$talk]['slides'], $talks[$talk]['video_url'], $talks[$talk]['rating_url'], $talks[$talk]['other'], $talks[$talk]['sponsor'], $talks[$talk]['desired']);
             }
         }
 

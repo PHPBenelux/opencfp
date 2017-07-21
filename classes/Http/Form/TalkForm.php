@@ -16,6 +16,8 @@ class TalkForm extends Form
         'category',
         'desired',
         'slides',
+        'video_url',
+        'rating_url',
         'other',
         'sponsor',
         'user_id',
@@ -62,6 +64,8 @@ class TalkForm extends Form
             $this->validateCategory() &&
             $this->validateDesired() &&
             $this->validateSlides() &&
+            $this->validateVideoUrl() &&
+            $this->validateRatingUrl() &&
             $this->validateOther() &&
             $this->validateSponsor()
         );
@@ -173,6 +177,16 @@ class TalkForm extends Form
     }
 
     public function validateSlides()
+    {
+        return true;
+    }
+
+    public function validateVideoUrl()
+    {
+        return true;
+    }
+    
+    public function validateRatingUrl()
     {
         return true;
     }

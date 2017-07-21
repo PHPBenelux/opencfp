@@ -404,6 +404,8 @@ class Talk extends Mapper
             'meta' => $talk_meta ?: $mapper->get(),
             'description' => $talk->description,
             'slides' => $talk->slides,
+            'video_url' => $talk->video_url,
+            'rating_url' => $talk->rating_url,
             'other' => $talk->other,
             'level' => $talk->level,
             'desired' => $talk->desired,
