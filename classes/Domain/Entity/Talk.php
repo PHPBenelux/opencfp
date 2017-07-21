@@ -21,6 +21,8 @@ class Talk extends Entity
             'category' => ['type' => 'string', 'length' => 50],
             'desired' => ['type' => 'smallint', 'value' => 0],
             'slides' => ['type' => 'string', 'length' => 255],
+            'video_url' => ['type' => 'string', 'length' => 255],
+            'rating_url' => ['type' => 'string', 'length' => 255],
             'other' => ['type' => 'text'],
             'sponsor' => ['type' => 'smallint', 'value' => 0],
             'selected' => ['type' => 'smallint', 'value' => 0],
