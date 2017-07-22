@@ -7,6 +7,8 @@
   <p><strong>Other Info:</strong> {{ talk.other|markdown }}</p>
 
   <p><strong>Slides:</strong> <a href="{{ talk.slides }}">{{ talk.slides }}</a></p>
+  <p><strong>Video URL:</strong> <a href="{{ talk.video_url }}">{{ talk.video_url }}</a></p>
+  <p><strong>Rating URL:</strong> <a href="{{ talk.rating_url }}">{{ talk.rating_url }}</a></p>
   <p><strong>Type:</strong> {{ talkHelper.getTypeDisplayName(talk.type) }}</p>
   <p><strong>Level:</strong> {{ talkHelper.getLevelDisplayName(talk.level) }}</p>
   <p><strong>Category:</strong> {{ talkHelper.getCategoryDisplayName(talk.category) }}</p>

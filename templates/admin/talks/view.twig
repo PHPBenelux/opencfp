@@ -31,6 +31,8 @@
                 <div role="tabpanel" class="tab-pane" id="additional-info">
                     <p>
                         <strong>Slides:</strong> {% if talk.slides is defined %}{{ talk.slides }}{% endif %}<br />
+                        <strong>Video URL:</strong> {% if talk.video_url is defined %}{{ talk.video_url }}{% endif %}<br />
+                        <strong>Rating URL:</strong> {% if talk.rating_url is defined %}{{ talk.rating_url }}{% endif %}<br />
                         <strong>Type:</strong> {{ talkHelper.getTypeDisplayName(talk.type) }}<br />
                         <strong>Level:</strong> {% if talk.level is defined %}{{ talkHelper.getLevelDisplayName(talk.level) }}{% endif %}<br />
                         <strong>Category:</strong> {% if talk.category is defined %}{{ talkHelper.getCategoryDisplayName(talk.category) }}{% endif %}<br />
