@@ -27,7 +27,7 @@ jobs:
           - v1-dependencies-
 
       - run: curl -sS https://getcomposer.org/installer | php
-
+      - run: sudo apt install -y php-gd php-pdo php-mysql mysql-server
       - run: php composer.phar install -n --prefer-dist
 
       - save_cache:
