@@ -6,7 +6,7 @@ jobs:
     steps:
       - run:
           name: Install system packages
-          command: apt-get update && apt-get -y install git libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev
+          command: apt-get update && apt-get -y install git libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev gzip bzip2 tar
       - run:
           name: Build php extensions
           command: docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
@@ -26,6 +26,14 @@ jobs:
           command: |
             php -v
             php composer.phar --version
+      - restore_cache:
+            keys:
+              - composer-v1-{{ checksum "composer.json" }}
+              - composer-v1-
       - run:
           name: Install project dependencies
           command: php composer.phar install
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.json" }}
+          paths:
+            - vendor
