@@ -37,10 +37,13 @@ jobs:
           key: composer-v1-{{ checksum "composer.json" }}
           paths:
             - vendor
-
-    deployment:
-      production:
-        branch: cfp_bnl_2018
-        commands:
-          - ssh jenkins@phpbenelux.eu sudo -u www-data git -C /var/www/cfp.phpbenelux.eu clean -f
-          - ssh jenkins@phpbenelux.eu sudo -u www-data git -C /var/www/cfp.phpbenelux.eu pull origin cfp_bnl_2018
+      - add_ssh_keys:
+          fingerprints:
+            - "44:6d:84:71:d5:06:8f:2a:3d:0b:d7:5d:e9:5b:af:cc"
+      - deploy:
+          name: Deploy to production
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "cfp_bnl_2018" ]; then
+              ssh jenkins@phpbenelux.eu sudo -u www-data git -C /var/www/cfp.phpbenelux.eu clean -f
+              ssh jenkins@phpbenelux.eu sudo -u www-data git -C /var/www/cfp.phpbenelux.eu pull origin cfp_bnl_2018
+            fi
