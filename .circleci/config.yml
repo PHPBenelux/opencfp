@@ -42,4 +42,5 @@ jobs:
       production:
         branch: cfp_bnl_2018
         commands:
-          - ssh jenkins@phpbenelux.eu sudo -u www-data git -C /var/www/cfp.phpbenelux.eu status
+          - ssh jenkins@phpbenelux.eu sudo -u www-data git -C /var/www/cfp.phpbenelux.eu clean -f
+          - ssh jenkins@phpbenelux.eu sudo -u www-data git -C /var/www/cfp.phpbenelux.eu pull origin cfp_bnl_2018
