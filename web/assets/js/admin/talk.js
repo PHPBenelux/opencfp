@@ -61,16 +61,25 @@ Talk.prototype.rate = function(rating) {
       if (data.rating === -1) {
         $('#talk-downvote-' + _this.id + ' i').addClass('admin-icon--selected');
         $('#talk-upvote-' + _this.id + ' i').removeClass('admin-icon--selected');
+        $('#talk-mustvote-' + _this.id + ' i').removeClass('admin-icon--selected');
       }
 
       if (data.rating === 1) {
         $('#talk-upvote-' + _this.id + ' i').addClass('admin-icon--selected');
         $('#talk-downvote-' + _this.id + ' i').removeClass('admin-icon--selected');
+        $('#talk-mustvote-' + _this.id + ' i').removeClass('admin-icon--selected');
+      }
+
+      if (data.rating === 2) {
+        $('#talk-upvote-' + _this.id + ' i').removeClass('admin-icon--selected');
+        $('#talk-downvote-' + _this.id + ' i').removeClass('admin-icon--selected');
+        $('#talk-mustvote-' + _this.id + ' i').addClass('admin-icon--selected');
       }
 
       if (data.rating === 0) {
         $('#talk-upvote-' + _this.id + ' i').removeClass('admin-icon--selected');
         $('#talk-downvote-' + _this.id + ' i').removeClass('admin-icon--selected');
+          $('#talk-mustvote-' + _this.id + ' i').removeClass('admin-icon--selected');
       }
     },
     error: _this.onError

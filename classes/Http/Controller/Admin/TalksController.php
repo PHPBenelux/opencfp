@@ -205,7 +205,7 @@ class TalksController extends BaseController
         $talk_id = (int)$req->get('id');
 
         // Check for invalid rating range
-        if ($talk_rating < -1 || $talk_rating > 1) {
+        if ($talk_rating < -1 || $talk_rating > 2) {
             return false;
         }
 
