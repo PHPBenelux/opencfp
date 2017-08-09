@@ -12,7 +12,7 @@
     <tbody>
         {% for talk in talks %}
             <tr>
-                <td><a href="{{ url('admin_talk_view', { id: talk.id }) }}">{{ talk.title|raw }}</a></td>
+                <td><a href="{{ url('admin_talk_view', { id: talk.id }) }}" title="{{ talk.description|striptags }}">{{ talk.title|raw }}</a></td>
                 <td>{{ talkHelper.getTypeDisplayName(talk.type) }}</td>
                 <td>{{ talkHelper.getCategoryDisplayName(talk.category) }}</td>
                 <td>{{ talk.created_at|date("M jS Y \\a\\t g:ia T") }}</td>
