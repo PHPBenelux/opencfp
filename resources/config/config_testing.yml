@@ -1,0 +1,22 @@
+imports:
+  - { resource: config.yml }
+
+services:
+  _defaults:
+    public: false
+
+  OpenCFP\Test\Helper\MockAuthentication:
+    decorates: OpenCFP\Domain\Services\Authentication
+    arguments: ['@OpenCFP\Test\Helper\MockAuthentication.inner']
+
+  OpenCFP\Test\Helper\MockIdentityProvider:
+    decorates: OpenCFP\Domain\Services\IdentityProvider
+    arguments: ['@OpenCFP\Test\Helper\MockIdentityProvider.inner']
+
+framework:
+  session:
+    storage_id: session.storage.mock_file
+  test: ~
+
+swiftmailer:
+  disable_delivery: true
