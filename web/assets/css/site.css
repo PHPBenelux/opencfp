@@ -1,0 +1,9 @@
+.bg-brand {background-color: #1C8DD3;}
+.border-brand {border-color: #1C8DD3;}
+.btn-brand {background-color: #1C8DD3;border-color: #1C8DD3;}
+.btn-brand-o {border-width: 2px;border-color: #1C8DD3;color: #1C8DD3;}
+.btn-brand-o:hover {background-color: #1C8DD3;color: #fff;}
+.text-brand {color: #1C8DD3;}
+.btn-white {background-color: #fff;color: #1C8DD3;}
+.btn-white-o:hover {background-color: #fff;color: #1C8DD3;}
+.w-10 {width: 10rem;}
