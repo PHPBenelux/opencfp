@@ -7,3 +7,4 @@
 .btn-white {background-color: #fff;color: #1C8DD3;}
 .btn-white-o:hover {background-color: #fff;color: #1C8DD3;}
 .w-10 {width: 10rem;}
+a.btn {cursor:pointer;}

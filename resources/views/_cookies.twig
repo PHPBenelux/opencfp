@@ -1,0 +1,24 @@
+<div class="position-fixed fixed-bottom">
+    <div id="cookie_banner" class="py-4 bg-brand text-white">
+        <div class="container mx-auto flex justify-between">
+            <p class="mr-2">We use cookies to offer you a better browsing experience, analyse site traffic, personalise content,
+                and serve targeted advertisements. Read about how we use cookies by clicking "<a href="{{ url('privacy') }}"
+                 title="Privacy Statement" class="text-white">Privacy Statement</a>". If you continue to use this site, you
+                consent to our use of cookies.</p>
+            <div class="flex">
+                <a id="accept_cookies" class="btn btn-white" title="Accept our cookie usage">Accept</a>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript">
+        var cookies = document.cookie;
+        if (cookies.includes("accept_cookie=1")) {
+            $( "#cookie_banner" ).hide();
+        }
+        $( "#accept_cookies" ).on("click", function ( event ) {
+            event.preventDefault();
+            document.cookie = "accept_cookie=1; expires={{ "+1 year"|date("r") }}; path=/";
+            document.location.href = '{{ url("homepage") }}';
+        });
+    </script>
+</div>
