@@ -1,4 +1,5 @@
 .bg-brand {background-color: #1C8DD3;}
+.bg-brand-t {background-color: rgba(27, 121, 200, 0.8);}
 .border-brand {border-color: #1C8DD3;}
 .btn-brand {background-color: #1C8DD3;border-color: #1C8DD3;}
 .btn-brand-o {border-width: 2px;border-color: #1C8DD3;color: #1C8DD3;}
@@ -8,3 +9,4 @@
 .btn-white-o:hover {background-color: #fff;color: #1C8DD3;}
 .w-10 {width: 10rem;}
 a.btn {cursor:pointer;}
+#cookie_notice {display: block; width: 100%; position: fixed; bottom: 0; left: 0; z-index: 99999999;}
