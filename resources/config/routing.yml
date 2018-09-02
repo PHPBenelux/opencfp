@@ -258,3 +258,8 @@ privacy:
    methods: [GET]
    controller: OpenCFP\Http\Action\Signup\PrivacyAction
 
+terms:
+   path: /terms
+   methods: [GET]
+   controller: OpenCFP\Http\Action\Signup\TermsAction
+
