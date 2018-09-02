@@ -1,3 +1,4 @@
+{% if not app.request.cookies.get('accept_cookie') %}
 <div id="cookie_notice" class="position-fixed fixed-bottom">
     <div id="cookie_banner" class="py-4 bg-brand-t text-white">
         <div class="container mx-auto flex justify-between">
@@ -22,3 +23,4 @@
         });
     </script>
 </div>
+{% endif %}
