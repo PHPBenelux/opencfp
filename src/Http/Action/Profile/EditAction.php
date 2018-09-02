@@ -87,6 +87,8 @@ final class EditAction
             'airport'          => $speakerData['airport'],
             'transportation'   => $speakerData['transportation'],
             'hotel'            => $speakerData['hotel'],
+            'dietary_preference' => $speakerData['dietary_preference'],
+            'food_allergies' => $speakerData['food_allergies'],
             'id'               => $user->getId(),
             'formAction'       => $this->urlGenerator->generate('user_update'),
             'buttonInfo'       => 'Update Profile',
