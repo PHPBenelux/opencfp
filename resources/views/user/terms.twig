@@ -1,0 +1,38 @@
+{% extends "layouts/splash.twig" %}
+{% block content %}
+    <div class="opencfp-legal text-white">
+        <div class="container">
+            <a class="font-serif flex items-center justify-center mb-4" href="{{ url('homepage') }}">
+                <img class="w-10 mr-2" src="{{ assets('img/phpbenelux_logo.svg') }}" alt="PHPBenelux">
+            </a>
+            <h1>Terms &amp; Conditions</h1>
+            <p>
+                These are the terms and conditions of usage of this OpenCFP installation, used for requesting
+                proposals for {{ site.title }}.
+            </p>
+            <h2>1. Definitions</h2>
+            <ul>
+                <li><strong>OpenCFP</strong>: An installation of <a class="text-white underline" href="" title="OpenCFP" target="_blank" rel="nofollow">OpenCFP</a>,
+                    an open source platform used to request talk and workshop proposals for conferences and events, here referred to
+                    by "platform".</li>
+                <li><strong>{{ site.organisation }}</strong>: The organisation making use of OpenCFP, here referred to by "us", "we" and "organisation".</li>
+                <li><strong>{{ site.title }}</strong>: The event you're sending us proposals for, here referred to by "conference" and "event".</li>
+                <li><strong>Speaker</strong>: The person submitting proposals of talks and/or workshops to this platform, here referred to by "you", "them" and "they".</li>
+            </ul>
+            <h2>2. General terms</h2>
+            <p>By making use of this platform, you're implicitly give us your intention to speak at
+            {{ site.title }} and therefor we will use your provided details, if selected as speaker, to be published
+            for the conference. This can be digital (on our website, social media channels, in conversations with
+            sponsors) or in print (signages, schedules, booklets) during the conference at the venue.</p>
+            <h2>3. Usage of your information</h2>
+            <p>We have a strict policy to handle your personal information with the utmost care, ensuring only people of our
+            organisation has access to this information before, during and after our event.</p>
+            <p>Please review our <a class="text-white underline" href="{{ url("privacy") }}">Privacy Policy</a> to understand your rights and
+            how you can exercise your rights.</p>
+            <h2>4. Complaints, errors or suggestions</h2>
+            <p>We have taken utmost care to deliver you this platform, but chances are that we've missed something. Or you have questions about
+                usage of this platform. Please contact us at <a class="text-white underline" href="mailto:{{ site.email }}">{{ site.email }}</a>
+                so we can make your experience on this platform awesome.</p>
+        </div>
+    </div>
+{% endblock %}

@@ -260,3 +260,8 @@ sso_redirect:
   path: /sso/redirect
   methods: [GET]
   controller: OpenCFP\Http\Action\Security\SsoRedirectAction
+terms:
+   path: /terms
+   methods: [GET]
+   controller: OpenCFP\Http\Action\Signup\TermsAction
+
