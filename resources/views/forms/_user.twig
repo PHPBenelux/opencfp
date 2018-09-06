@@ -46,7 +46,7 @@
                 <input id="form-user-airport" type="text" name="airport" placeholder="3 Characters" value="{{ airport | default('') }}">
             {% endif %}
 
-            <label for="form-user-dietary">Diatary Preferences</label>
+            <label for="form-user-dietary">Dietary Preferences</label>
             <select id="form-user-dietary" name="dietary_preference">
                 {% for value, text in {"nopref": "No preference", "vegetarian": "Vegetarian", "vegan": "Vegan"} %}
                     {% if dietary_preference == value %}
