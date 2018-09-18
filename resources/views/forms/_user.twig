@@ -46,6 +46,20 @@
                 <input id="form-user-airport" type="text" name="airport" placeholder="3 Characters" value="{{ airport | default('') }}">
             {% endif %}
 
+            <label for="form-user-dietary">Dietary Preferences</label>
+            <select id="form-user-dietary" name="dietary_preference">
+                {% for value, text in {"nopref": "No preference", "vegetarian": "Vegetarian", "vegan": "Vegan"} %}
+                    {% if dietary_preference == value %}
+                        <option value="{{ value }}" selected="selected">{{ text }}</option>
+                    {% else %}
+                        <option value="{{ value }}">{{ text }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <label for="form-user-allergies">Food Allergies</label>
+            <textarea id="form-user-allergies" name="food_allergies" placeholder="Do you have any food allergies?" rows="5">{{ food_allergies | default('') }}</textarea>
+
             <label for="form-user-notes">Additional Notes</label>
             <textarea id="form-user-notes" name="speaker_info" placeholder="Any other information you feel the organizers should be aware of ..." rows="5">{{ speaker_info | default('') }}</textarea>
             <p class="text-xs text-em mb-2 text-dark-soft">Speaker notes can be written using <a href="https://daringfireball.net/projects/markdown/basics" target="_blank" class="text-underline" rel="noopener noreferrer">markdown</a> to support links</p>

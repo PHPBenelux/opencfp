@@ -136,6 +136,8 @@ final class ProcessAction
             'airport'        => $request->get('airport'),
             'transportation' => (int) $request->get('transportation'),
             'hotel'          => (int) $request->get('hotel'),
+            'dietary_preference' => $request->get('dietary_preference'),
+            'food_allergies' => $request->get('food_allergies'),
             'speaker_info'   => $request->get('speaker_info') ?: null,
             'speaker_bio'    => $request->get('speaker_bio') ?: null,
         ];

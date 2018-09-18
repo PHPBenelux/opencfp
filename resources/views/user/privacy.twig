@@ -1,26 +1,34 @@
 {% extends "layouts/splash.twig" %}
 {% block content %}
-    <div class="opencfp-signup">
-        <a class="font-serif flex items-center justify-center mb-4" href="{{ url('homepage') }}">
-            <img class="w-10 mr-2" src="{{ assets('img/logo.svg') }}" alt="OpenCFP">
-            <h1 class="font-normal text-white m-0">Open<span class="text-brand font-bold">CFP</span></h1>
-        </a>
-        <h1>Privacy Policy</h1>
-        <p>
-            This OpenCFP installation will collect personal information from you for the purpose of managing talk submissions
-            for a conference. The lead developer for the OpenCFP project recommends that conference organizers delete
-            all records from the database being used with this installation within 15 months of accepting submissions for
-            the event associated with this OpenCFP installation.
-        </p>
-        <p>
-            In future releases tools will be provided to allow OpenCFP installations to more easily comply with the European
-            General Data Protection Regulation that comes into effect on May 25, 2018. This OpenCFP installation
-            currently does not provide a way to download all the information created by users of the application.
-        </p>
-        <p>
-            This OpenCFP installation currently does not provide a mechanism to allow users to explicitly give
-            permission for the information they have submitted to be shared with third parties or to be used
-            for purposes other than managing conference speakers and conference sessions.
-        </p>
+    <div class="opencfp-legal text-white">
+        <div class="container">
+            <a class="font-serif flex items-center justify-center mb-4" href="{{ url('homepage') }}">
+                <img class="w-10 mr-2" src="{{ assets('img/phpbenelux_logo.svg') }}" alt="PHPBenelux">
+            </a>
+            <h1>Privacy Policy</h1>
+            <p>
+                This OpenCFP installation will collect personal information from you for the purpose of managing talk submissions
+                for a conference. The lead developer for the OpenCFP project recommends that conference organizers delete
+                all records from the database being used with this installation within 15 months of accepting submissions for
+                the event associated with this OpenCFP installation.
+            </p>
+            <p>
+                We're also using <a class="text-white underline" href="https://marketingplatform.google.com/about/analytics/" title="Google Analytics" target="_blank" rel="nofollow">Google Analytics</a> to get
+                visitor information and to measure anonymous activity on our website. Please read the <a class="text-white underline" href="https://policies.google.com/privacy?hl=en"
+                 title="Google Analytics Privacy Statement" target="_blank" rel="nofollow">Google Analytics Privacy Statement</a>
+                to learn how Google is protecting your privacy.
+            </p>
+            <p>
+                In future releases tools will be provided to allow OpenCFP installations to more easily comply with the European
+                General Data Protection Regulation that comes into effect on May 25, 2018. This OpenCFP installation
+                currently does not provide a way to download all the information created by users of the application.
+            </p>
+            <p>
+                This OpenCFP installation currently does not provide a mechanism to allow users to explicitly give
+                permission for the information they have submitted to be shared with third parties or to be used
+                for purposes other than managing conference speakers and conference sessions.
+            </p>
+            <p>For all your questions, please contact the organisation at <a class="text-white underline" href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+        </div>
     </div>
 {% endblock %}

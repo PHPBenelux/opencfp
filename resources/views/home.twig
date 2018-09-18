@@ -33,7 +33,9 @@
             {%  else %}
                 <p>For More Information About The Conference</p>
             {% endif %}
-            <a href="{{ site.eventurl }}" class="btn btn-brand-o">Visit Conference Site</a>
+            {% if site.eventurl is defined and site.eventurl != "http://localhost" %}
+                <a href="{{ site.eventurl }}" class="btn btn-brand-o">Visit Conference Site</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
