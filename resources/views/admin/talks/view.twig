@@ -68,6 +68,24 @@
         <textarea name="comment" rows="3" placeholder="Enter Comment..."></textarea>
         <button type="submit" class="btn btn-brand">Submit Comment</button>
     </form>
+
+    <div class="space-break">
+        <hr class="hr">
+    </div>
+
+    <div class="quick-nav flex justify-between">
+        <div class="mr-8">
+            {% if 0 >= (talk.id - 1) %}
+            &laquo; Previous
+            {% else %}
+            <a href="{{ url('admin_talk_view', { id: talk.id - 1}) }}" class="">&laquo; Previous</a>
+            {% endif %}
+        </div>
+        <div class="mr-8">
+            <a href="{{ url('admin_talk_view', { id: talk.id + 1}) }}" class="">Next &raquo;</a>
+        </div>
+    </div>
+
 {% endblock %}
 {% block scripts %}
     {{ parent() }}
