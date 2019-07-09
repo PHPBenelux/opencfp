@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -120,6 +120,48 @@ class SpeakerProfile
         $this->assertAllowedToSee('twitter');
 
         return $this->speaker->twitter;
+    }
+
+    /**
+     * @throws NotAllowedException
+     *
+     * @return string
+     */
+    public function getTwitterUrl(): string
+    {
+        $this->assertAllowedToSee('twitter');
+
+        return User::twitterUrl($this->speaker->twitter);
+    }
+
+    /**
+     * @throws NotAllowedException
+     *
+     * @return null|string
+     */
+    public function getJoindInUsername()
+    {
+        $this->assertAllowedToSee('joindin_username');
+
+        return $this->speaker->joindin_username;
+    }
+
+    /**
+     * @throws NotAllowedException
+     *
+     * @return null|string
+     */
+    public function getJoindInUrl()
+    {
+        $this->assertAllowedToSee('joindin_username');
+
+        $username = $this->speaker->joindin_username;
+
+        if ($username === null || \trim($username) === '') {
+            return '';
+        }
+
+        return 'https://joind.in/user/' . $username;
     }
 
     /**

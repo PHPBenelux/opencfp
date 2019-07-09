@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -15,12 +15,16 @@ namespace OpenCFP\Domain\Model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @method static self create(array $attributes)
+ * @method static self|null find($id, $columns = ['*'])
+ */
 class Favorite extends Eloquent
 {
     protected $table = 'favorites';
 
-    const CREATED_AT = 'created';
-    const UPDATED_AT = null;
+    public const CREATED_AT = 'created';
+    public const UPDATED_AT = null;
 
     public function talk(): BelongsTo
     {

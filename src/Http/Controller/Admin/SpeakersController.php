@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -112,6 +112,7 @@ class SpeakersController extends BaseController
 
             $speaker['is_admin'] = \in_array($speaker['id'], $adminUserIds);
             $speaker['is_reviewer'] = \in_array($speaker['id'], $reviewerUserIds);
+            $speaker['twitterUrl'] = User::twitterUrl($speaker['twitter']);
 
             return $speaker;
         })->toArray();
@@ -176,8 +177,8 @@ class SpeakersController extends BaseController
         $this->capsule->getConnection()->beginTransaction();
 
         try {
-            $user = User::findorFail($request->get('id'));
-            $user->delete($request->get('id'));
+            $user = User::findOrFail($request->get('id'));
+            $user->delete();
             $ext   = 'Successfully deleted the requested user';
             $type  = 'success';
             $short = 'Success';

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -229,5 +229,14 @@ abstract class WebTestCase extends KernelTestCase
     final protected function session(): Session\SessionInterface
     {
         return $this->container->get('session');
+    }
+
+    final protected function withFakeSwiftMailer(): self
+    {
+        $fakeMailer = Mockery::mock(\Swift_Mailer::class);
+        $fakeMailer->shouldReceive('send')->andThrow(\Swift_TransportException::class);
+        $this->container->set(\Swift_Mailer::class, $fakeMailer);
+
+        return $this;
     }
 }

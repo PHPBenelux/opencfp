@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -19,11 +19,12 @@ use OpenCFP\Domain\Model;
 use OpenCFP\Domain\Services;
 use OpenCFP\Http\Form;
 use OpenCFP\Http\View;
+use OpenCFP\Infrastructure\Templating\Template;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\HttpFoundation;
 use Symfony\Component\Routing;
-use Twig_Environment;
+use Twig\Environment;
 
 final class CreateProcessAction
 {
@@ -68,7 +69,7 @@ final class CreateProcessAction
     private $applicationEndDate;
 
     /**
-     * @var Twig_Environment
+     * @var Environment
      */
     private $twig;
 
@@ -86,7 +87,7 @@ final class CreateProcessAction
         string $applicationEmail,
         string $applicationTitle,
         string $applicationEndDate,
-        Twig_Environment $twig,
+        Environment $twig,
         Routing\Generator\UrlGeneratorInterface $urlGenerator
     ) {
         $this->authentication     = $authentication;
@@ -164,16 +165,23 @@ final class CreateProcessAction
             'user_id' => $user->getId(),
         ]));
 
-        $request->getSession()->set('flash', [
-            'type'  => 'success',
-            'short' => 'Success',
-            'ext'   => 'Successfully saved talk.',
-        ]);
-
-        $this->sendSubmitEmail(
-            $user->getLogin(),
-            (int) $talk->id
-        );
+        try {
+            $this->sendSubmitEmail(
+                $user->getLogin(),
+                (int) $talk->id
+            );
+            $request->getSession()->set('flash', [
+                'type'  => 'success',
+                'short' => 'Success',
+                'ext'   => 'Successfully saved talk.',
+            ]);
+        } catch (\Swift_TransportException $e) {
+            $request->getSession()->set('flash', [
+                'type'  => 'error',
+                'short' => 'Error',
+                'ext'   => 'Your talk was saved but we could not send a confirmation email',
+            ]);
+        }
 
         $url = $this->urlGenerator->generate('dashboard');
 
@@ -197,6 +205,7 @@ final class CreateProcessAction
     {
         $talk = Model\Talk::find($talkId, ['title']);
 
+        /** @var Template $template */
         $template = $this->twig->loadTemplate('emails/talk_submit.twig');
 
         $parameters = [
@@ -206,26 +215,21 @@ final class CreateProcessAction
             'enddate' => $this->applicationEndDate,
         ];
 
-        try {
-            $message = new Swift_Message();
+        $message = new Swift_Message();
 
-            $message->setTo($email);
-            $message->setFrom(
-                $template->renderBlock('from', $parameters),
-                $template->renderBlock('from_name', $parameters)
-            );
+        $message->setTo($email);
+        $message->setFrom(
+            $template->renderBlockWithContext('from', $parameters),
+            $template->renderBlockWithContext('from_name', $parameters)
+        );
 
-            $message->setSubject($template->renderBlock('subject', $parameters));
-            $message->setBody($template->renderBlock('body_text', $parameters));
-            $message->addPart(
-                $template->renderBlock('body_html', $parameters),
-                'text/html'
-            );
+        $message->setSubject($template->renderBlockWithContext('subject', $parameters));
+        $message->setBody($template->renderBlockWithContext('body_text', $parameters));
+        $message->addPart(
+            $template->renderBlockWithContext('body_html', $parameters),
+            'text/html'
+        );
 
-            return $this->mailer->send($message);
-        } catch (\Exception $e) {
-            echo $e;
-            die();
-        }
+        return $this->mailer->send($message);
     }
 }

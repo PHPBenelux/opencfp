@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace OpenCFP\Domain\Services;
 
+use OpenCFP\Infrastructure\Templating\Template;
+use Twig\Environment;
+
 class ResetEmailer
 {
     /**
@@ -21,7 +24,7 @@ class ResetEmailer
     private $swiftMailer;
 
     /**
-     * @var \Twig_Environment
+     * @var \Twig\Environment
      */
     private $twig;
 
@@ -36,12 +39,12 @@ class ResetEmailer
     private $configTitle;
 
     /**
-     * @param \Swift_Mailer     $swiftMailer
-     * @param \Twig_Environment $twig
-     * @param string            $configEmail
-     * @param string            $configTitle
+     * @param \Swift_Mailer $swiftMailer
+     * @param Environment   $twig
+     * @param string        $configEmail
+     * @param string        $configTitle
      */
-    public function __construct(\Swift_Mailer $swiftMailer, \Twig_Environment $twig, string $configEmail, string $configTitle)
+    public function __construct(\Swift_Mailer $swiftMailer, Environment $twig, string $configEmail, string $configTitle)
     {
         $this->swiftMailer = $swiftMailer;
         $this->twig        = $twig;
@@ -99,19 +102,19 @@ class ResetEmailer
     {
         $message = new \Swift_Message();
 
-        /** @var \Twig_Template $template */
+        /** @var Template $template */
         $template = $this->twig->loadTemplate('emails/reset_password.twig');
 
         $message->setTo($email);
         $message->setFrom(
-            $template->renderBlock('from', $parameters),
-            $template->renderBlock('from_name', $parameters)
+            $template->renderBlockWithContext('from', $parameters),
+            $template->renderBlockWithContext('from_name', $parameters)
         );
 
-        $message->setSubject($template->renderBlock('subject', $parameters));
-        $message->setBody($template->renderBlock('body_text', $parameters));
+        $message->setSubject($template->renderBlockWithContext('subject', $parameters));
+        $message->setBody($template->renderBlockWithContext('body_text', $parameters));
         $message->addPart(
-            $template->renderBlock('body_html', $parameters),
+            $template->renderBlockWithContext('body_html', $parameters),
             'text/html'
         );
 

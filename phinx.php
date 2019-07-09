@@ -3,19 +3,20 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
  * @see https://github.com/opencfp/opencfp
  */
+
 use OpenCFP\Environment;
 use OpenCFP\Kernel;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$kernel = new Kernel((string) Environment::fromServer($_SERVER), false);
+$kernel = new Kernel((string) Environment::fromServer(\getenv()), false);
 $kernel->boot();
 
 $container = $kernel->getContainer();

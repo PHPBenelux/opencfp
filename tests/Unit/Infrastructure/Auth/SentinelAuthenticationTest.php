@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -51,13 +51,13 @@ final class SentinelAuthenticationTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function authenticateWillThrowCorrectError()
+    public function authenticateWillThrowCorrectErrorForMissingAccount()
     {
         $sentinel = Mockery::mock(Sentinel::class);
         $account  = Mockery::mock(AccountManagement::class);
         $account->shouldReceive('findByLogin')->andThrow(new UserNotFoundException());
         $auth = new SentinelAuthentication($sentinel, $account);
-        $this->expectException(AuthenticationException::class);
+        $this->expectException(UserNotFoundException::class);
         $auth->authenticate('mail', 'pass');
     }
 

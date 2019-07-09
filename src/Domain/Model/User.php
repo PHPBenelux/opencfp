@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -17,6 +17,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
+/**
+ * @method static self create(array $attributes)
+ * @method static self|null find($id, $columns = ['*'])
+ * @method static self findOrFail($id, $columns = ['*'])
+ * @method static self|null first($columns = ['*'])
+ * @method static Builder search(string $search = '')
+ *
+ * @property Collection|Talk[] $talks
+ */
 class User extends Eloquent
 {
     public function talks(): HasMany
@@ -47,6 +56,11 @@ class User extends Eloquent
     public function throttle(): HasMany
     {
         return $this->hasMany(Throttle::class);
+    }
+
+    public static function twitterUrl(?string $handle): string
+    {
+        return !$handle || !\trim($handle) ? '' : ('https://twitter.com/' . $handle);
     }
 
     /**

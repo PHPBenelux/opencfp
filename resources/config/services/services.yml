@@ -3,6 +3,9 @@ services:
     public: false
     autowire: true
 
+  GuzzleHttp\ClientInterface:
+    class: GuzzleHttp\Client
+
   OpenCFP\Http\Controller\:
     resource: '%kernel.project_dir%/src/Http/Controller/*'
     public: true
@@ -20,8 +23,28 @@ services:
       $applicationTitle: '%application.title%'
       $forgotForm: '@OpenCFP\Http\Form\ForgotForm'
       $resetForm: '@OpenCFP\Http\Form\ResetForm'
-      $reviewerUsers: '%reviewer.users%'
       $showSubmissionCount: '%application.show_submission_count%'
+
+  OpenCFP\Http\Action\Security\SsoAction:
+    public: true
+    bind:
+      $clientId: '%opencfpcentral.clientId%'
+      $redirectUri: '%opencfpcentral.redirectUri%'
+      $authorizeUrl: '%opencfpcentral.authorizeUrl%'
+
+  OpenCFP\Http\Action\Security\SsoRedirectAction:
+    public: true
+    bind:
+      $clientId: '%opencfpcentral.clientId%'
+      $clientSecret: '%opencfpcentral.clientSecret%'
+      $redirectUri: '%opencfpcentral.redirectUri%'
+      $resourceUri: '%opencfpcentral.resourceUri%'
+      $tokenUrl: '%opencfpcentral.tokenUrl%'
+
+  OpenCFP\Http\Action\Security\ShowLogInAction:
+    public: true
+    bind:
+      $sso: '%opencfpcentral.sso%'
 
   OpenCFP\Http\Form\ForgotForm:
     class: Symfony\Component\Form\FormInterface
@@ -55,3 +78,8 @@ services:
     autowire: false
     factory: [OpenCFP\Environment, fromString]
     arguments: ['%kernel.environment%']
+
+  Swift_Mailer:
+    public: true
+    class: Swift_Mailer
+

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -17,6 +17,7 @@ use Cartalyst\Sentinel\Native\Facades\Sentinel;
 use OpenCFP\Domain\Services\AuthenticationException;
 use OpenCFP\Infrastructure\Auth\SentinelAccountManagement;
 use OpenCFP\Infrastructure\Auth\SentinelAuthentication;
+use OpenCFP\Infrastructure\Auth\UserNotFoundException;
 use OpenCFP\Test\Integration\TransactionalTestCase;
 use OpenCFP\Test\Integration\WebTestCase;
 
@@ -53,9 +54,9 @@ final class SentinelAuthenticationTest extends WebTestCase implements Transactio
     /**
      * @test
      */
-    public function wrongUserCanNotAuthenticate()
+    public function missingUserIsNotFoundCantAuthenticate()
     {
-        $this->expectException(AuthenticationException::class);
+        $this->expectException(UserNotFoundException::class);
         $this->sut->authenticate('wrong@user.com', 'secret');
     }
 

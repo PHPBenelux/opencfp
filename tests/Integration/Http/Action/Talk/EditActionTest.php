@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -96,6 +96,7 @@ final class EditActionTest extends WebTestCase implements TransactionalTestCase
 
         $response = $this
             ->asLoggedInSpeaker($speaker->id)
+            ->callForPapersIsOpen()
             ->get('/talk/edit/' . $talk->id . '?token_id=edit_talk&token=' . $csrfToken);
 
         $this->assertResponseIsSuccessful($response);

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace OpenCFP\Domain\Services;
 
 use OpenCFP\Infrastructure\Auth\UserInterface;
+use OpenCFP\Infrastructure\Auth\UserNotFoundException;
 
 interface Authentication
 {
@@ -24,6 +25,7 @@ interface Authentication
      * @param string $password
      *
      * @throws AuthenticationException
+     * @throws UserNotFoundException
      */
     public function authenticate($username, $password);
 

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -26,6 +26,16 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
         parent::setUp();
 
         $this->setUpTalksForTests();
+    }
+
+    /**
+     * @test
+     */
+    public function recentReturnsLatestTalksFirst()
+    {
+        $recent = Talk::recent()->get();
+        $this->assertSame('talks title NO 3', $recent->first()->title);
+        $this->assertSame('talks title', $recent->last()->title);
     }
 
     /** @test */
@@ -138,6 +148,7 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
             'level'       => 'entry',
             'category'    => 'api',
             'selected'    => 0,
+            'created_at'  => '2018-01-01 00:00:00',
         ]);
 
         $talkTwo = Talk::create([
@@ -148,6 +159,7 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
             'level'       => 'entry',
             'category'    => 'api',
             'selected'    => 1,
+            'created_at'  => '2018-01-01 00:00:05',
         ]);
 
         Talk::create([
@@ -158,6 +170,7 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
             'level'       => 'entry',
             'category'    => 'api',
             'selected'    => 0,
+            'created_at'  => '2018-01-01 00:00:10',
         ]);
 
         TalkMeta::create([

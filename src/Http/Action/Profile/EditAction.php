@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -73,22 +73,23 @@ final class EditAction
         $speakerData = Model\User::find($user->getId())->toArray();
 
         $content = $this->twig->render('user/edit.twig', [
-            'email'          => $user->getLogin(),
-            'first_name'     => $speakerData['first_name'],
-            'last_name'      => $speakerData['last_name'],
-            'company'        => $speakerData['company'],
-            'twitter'        => $speakerData['twitter'],
-            'url'            => $speakerData['url'],
-            'speaker_info'   => $speakerData['info'],
-            'speaker_bio'    => $speakerData['bio'],
-            'speaker_photo'  => $speakerData['photo_path'],
-            'preview_photo'  => $this->path->uploadPath() . $speakerData['photo_path'],
-            'airport'        => $speakerData['airport'],
-            'transportation' => $speakerData['transportation'],
-            'hotel'          => $speakerData['hotel'],
-            'id'             => $user->getId(),
-            'formAction'     => $this->urlGenerator->generate('user_update'),
-            'buttonInfo'     => 'Update Profile',
+            'email'            => $user->getLogin(),
+            'first_name'       => $speakerData['first_name'],
+            'last_name'        => $speakerData['last_name'],
+            'company'          => $speakerData['company'],
+            'twitter'          => $speakerData['twitter'],
+            'joindin_username' => $speakerData['joindin_username'],
+            'url'              => $speakerData['url'],
+            'speaker_info'     => $speakerData['info'],
+            'speaker_bio'      => $speakerData['bio'],
+            'speaker_photo'    => $speakerData['photo_path'],
+            'preview_photo'    => $this->path->uploadPath() . $speakerData['photo_path'],
+            'airport'          => $speakerData['airport'],
+            'transportation'   => $speakerData['transportation'],
+            'hotel'            => $speakerData['hotel'],
+            'id'               => $user->getId(),
+            'formAction'       => $this->urlGenerator->generate('user_update'),
+            'buttonInfo'       => 'Update Profile',
         ]);
 
         return new HttpFoundation\Response($content);

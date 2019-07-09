@@ -3,7 +3,7 @@
 OpenCFP is a PHP-based conference talk submission system.
 
 ---
-[![Build Status](https://travis-ci.org/opencfp/opencfp.svg?branch=master)](https://travis-ci.org/opencfp/opencfp)
+[![CircleCI](https://circleci.com/gh/opencfp/opencfp.svg?style=svg)](https://circleci.com/gh/opencfp/opencfp)
 
 [![GitHub release](https://img.shields.io/github/release/opencfp/opencfp.svg)](https://github.com/opencfp/opencfp/releases/latest)
 
@@ -22,10 +22,11 @@ OpenCFP is a PHP-based conference talk submission system.
    * [Specify Web Server Document Root](#specify-web-server-document-root)
    * [Create a Database](#create-a-database)
    * [Configure Environment](#configure-environment)
+   * [OpenCFP Central](#opencfp-central)
    * [Run Migrations](#run-migrations)
    * [Using Vagrant](#using-vagrant)
    * [Final Touches](#final-touches)
-   * [Building Docker Image](#build-docker-image)
+   * [Building Docker Image](#building-docker-image)
  * [Command-line Utilities](#command-line-utilities)
    * [Admin Group Management](#admin-group-management)
    * [Reviewer Group Management](#reviewer-group-management)
@@ -59,6 +60,7 @@ See [`CONTRIBUTING.md`](.github/CONTRIBUTING.md).
  * Apache 2+ with `mod_rewrite` enabled and an `AllowOverride all` directive in your `<Directory>` block is the recommended web server
  * Composer requirements are listed in [composer.json](composer.json).
  * You may need to install `php7.0-intl` extension for PHP. (`php-intl` on CentOS/RHEL-based distributions)
+ * Either the GD image library or the Imagick PHP extension for the [Intervention image library](http://image.intervention.io/getting_started/installation))
 
 ## [Privacy Restrictions](#privacy)
 
@@ -235,6 +237,7 @@ to consider:
 | `secure_ssl`          | This should be enabled, if possible. Requires a valid SSL certificate. |
 | `database.*`          | This is the database information you collected above. |
 | `mail.*`              | This is SMTP configuration for sending mail. The application sends notifications on various system events. |
+| `opencfpcentral.*`    | Settings related to using OpenCFP Central for single-sign-on |
 | `talk.categories.*`   | dbkey: Display Name mapping for your talk categories |
 | `talk.types.*`        | dbkey: Display Name mapping for your talk types |
 | `talk.levels.*`       | dbkey: Display Name mapping for your talk levels |
@@ -251,6 +254,21 @@ mail:
     encryption: tls
     auth_mode: ~
 ```
+### [Running behind a trusted proxy](#run-trusted-proxy)
+
+If you are running OpenCFP behing a proxy server which adds X-Forwarded-For headers (this could be a cloud based load balancer or a service such as Cloudflare) you will need to set the environment variable TRUST_PROXIES to true this will ensure that OpenCFP trusts the headers set by these proxies for the original IP address and ssl mode. Setting this will trust these headers regardless of where the original request originates, so it's advisable to either lock down your instance so that only the trusted proxy can access it or modify the list of trusted proxies in the index.php file to only include the ip addresses of your proxies.
+
+
+### [OpenCFP Central](#opencfp-central)
+
+[OpenCFP Central](https://www.opencfpcentral.com) is a web site created by Chris Hartjes to help both speakers and conference organizers. Conference
+organizers can create an account and get an OAuth2 client ID and client secret, which can be entered into the
+configuration files. With the ID and secret, change the values for `opencfpcentral.sso` to be `on`, and set
+`opencfpcentral.clientId` and `opencfpcentral.clientSecret` to their respective values. 
+
+Any users who create an account at OpenCFP Central can use it to log into any OpenCFP instance that has enabled
+SSO. If you don't already have an account on that instance, one will be created for you.
+
 
 ### [Run Migrations](#run-migrations)
 
@@ -309,7 +327,7 @@ For more usage information please see the [Laravel Homestead Docs](http://larave
     * `/log`
  * You may need to alter the `memory_limit` of the web server to allow image processing of head-shots. This is largely
    dictated by the size of the images people upload. Typically 512M works.
- * Customize templates and `/web/assets/css/site.css` to your heart's content.
+ * Customize templates and `/web/assets/css/app.css` to your heart's content.
 
 ### [Building Docker Image](#building-docker-image)
 
@@ -346,7 +364,9 @@ image and run the containers automatically for you:
 $  docker-compose -f docker-compose.yml.dist up --build -d
 ```
 
-So now if you head over to `http://localhost` you will be greeted with a running version of OpenCFP. 
+So now if you head over to `http://localhost` you will be greeted with a running version of OpenCFP.
+
+After building and running the Docker image you'll need to [Run Migrations](#run-migrations) and [Add an Admin User](#user-management) before logging-in.
 
 #### Run PHP commands within the Container
 

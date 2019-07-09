@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2013-2018 OpenCFP
+ * Copyright (c) 2013-2019 OpenCFP
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -42,7 +42,7 @@ final class DashboardAction
     public function __invoke(): array
     {
         return [
-            'speakerTotal'  => Model\User::count(),
+            'speakerTotal'  => Model\Talk::distinct('user_id')->count('user_id'),
             'talkTotal'     => Model\Talk::count(),
             'favoriteTotal' => Model\Favorite::count(),
             'selectTotal'   => Model\Talk::where('selected', 1)->count(),
