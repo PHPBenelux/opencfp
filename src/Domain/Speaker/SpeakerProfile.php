@@ -247,4 +247,28 @@ class SpeakerProfile
 
         return $this->speaker->photo_path;
     }
+
+    /**
+     * @throws NotAllowedException
+     *
+     * @return null|string
+     */
+    public function getPickup()
+    {
+        $this->assertAllowedToSee('pickup');
+
+        return $this->speaker->pickup;
+    }
+
+    /**
+     * @throws NotAllowedException
+     *
+     * @return null|string
+     */
+    public function getDropoff()
+    {
+        $this->assertAllowedToSee('dropoff');
+
+        return $this->speaker->dropoff;
+    }
 }

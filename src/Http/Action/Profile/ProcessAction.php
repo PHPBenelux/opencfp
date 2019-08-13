@@ -139,6 +139,8 @@ final class ProcessAction
             'hotel'            => (int) $request->get('hotel'),
             'dietary_preference' => $request->get('dietary_preference'),
             'food_allergies' => $request->get('food_allergies'),
+            'pickup'           => $request->get('pickup') ?: 'no',
+            'dropoff'          => $request->get('dropoff') ?: 'no',
             'speaker_info'     => $request->get('speaker_info') ?: null,
             'speaker_bio'      => $request->get('speaker_bio') ?: null,
         ];
